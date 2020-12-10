@@ -1,46 +1,15 @@
-import { Component, VERSION } from "@angular/core";
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Product } from "../app/app.product.model";
+import { Component } from '@angular/core';
 
-@Injectable()
-export class ConfigService {
-  constructor(private http: HttpClient) {}
-}
 @Component({
-  selector: "my-app",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
 })
-export class AppComponent {
-  url = "https://world.openfoodfacts.org/api/v0/product/";
-  product = new Product();
-  name: "";
-  novaGroup: "";
-  imageUrl: "";
-  nutriScore: "";
-  test = this.setInformations("3095758863011");
-  constructor(private httpClient: HttpClient) {}
+export class AppComponent  {}
 
-  async getProductData(barcode: string) {
-    const data = await this.httpClient
-      .get(this.url + barcode + ".json", {
-        responseType: "json"
-      })
-      .toPromise();
-    return (this.product = {
-      name: data["product"]["product_name"],
-      novaGroup: data["product"]["nova_group"],
-      imageUrl: data["product"]["selected_images"]["front"]["thumb"]["fr"],
-      nutriScore: data["product"]["nutriscore_grade"]
-    });
-  }
-  setInformations(barcode: string) {
-    Promise.resolve(this.getProductData(barcode)).then(value => {
-      this.name = value.name;
-      this.novaGroup = value.novaGroup;
-      this.imageUrl = value.imageUrl;
-      this.nutriScore = value.nutriScore;
-    });
-  }
-}
+
+/*
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+*/
