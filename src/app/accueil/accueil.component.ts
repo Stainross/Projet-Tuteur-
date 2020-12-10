@@ -21,12 +21,10 @@ export class AccueilComponent {
   imageUrl: "";
   nutriScore: "";
   allergens: "";
-
   title = "app-projettut";
   errorMessage: string;
-
   //codeB.codeResult.code
-  test = this.setInformations("3033491589164");
+  test = this.setInformations("3421370012702");
   constructor(private httpClient: HttpClient) {}
   async getProductData(barcode: string) {
     const data = await this.httpClient
@@ -37,9 +35,9 @@ export class AccueilComponent {
     return (this.product = {
       name: data["product"]["product_name"],
       novaGroup: data["product"]["nova_group"],
-      imageUrl: data["product"]["selected_images"]["front"]["thumb"]["fr"],
+      imageUrl: data["product"]["image_small_url"],
       nutriScore: data["product"]["nutriscore_grade"],
-      allergens: data["product"]["allergens"]
+      allergens: data["product"]["allergens"].replace(/en:/gi, "")
     });
   }
   setInformations(barcode: string) {
