@@ -26,7 +26,7 @@ export class AccueilComponent {
   errorMessage: string;
 
   //codeB.codeResult.code
-  test = this.setInformations("3421370012702");
+  test = this.setInformations("3033491589164");
   constructor(private httpClient: HttpClient) {}
   async getProductData(barcode: string) {
     const data = await this.httpClient
@@ -45,10 +45,56 @@ export class AccueilComponent {
   setInformations(barcode: string) {
     Promise.resolve(this.getProductData(barcode)).then(value => {
       this.name = value.name;
-      this.novaGroup = value.novaGroup;
+      switch (value.novaGroup) {
+        case 1: {
+          value.novaGroup = "https://i.postimg.cc/sMLHBcT9/nova1.png";
+          break;
+        }
+        case 2: {
+          value.novaGroup = "https://i.postimg.cc/XrqD7hkY/nova2.png";
+          break;
+        }
+        case 3: {
+          value.novaGroup = "https://i.postimg.cc/TpC4xGms/nova3.png";
+          break;
+        }
+        case 4: {
+          value.novaGroup = "https://i.postimg.cc/N5gzZLyT/nova4.png";
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+      switch (value.nutriScore) {
+        case "a": {
+          value.nutriScore = "https://i.postimg.cc/s1NvBGp9/nutriA.png";
+          break;
+        }
+        case "b": {
+          value.nutriScore = "https://i.postimg.cc/gnLr3cs9/nutriB.png";
+          break;
+        }
+        case "c": {
+          value.nutriScore = "https://i.postimg.cc/vDB4Ht6Z/nutriC.png";
+          break;
+        }
+        case "d": {
+          value.nutriScore = "https://i.postimg.cc/QKHC4jrT/nutriD.png";
+          break;
+        }
+        case "e": {
+          value.nutriScore = "https://i.postimg.cc/cg1r3Q9T/nutriE.png";
+          break;
+        }
+        default: {
+          break;
+        }
+      }
       this.imageUrl = value.imageUrl;
       this.nutriScore = value.nutriScore;
       this.allergens = value.allergens;
+      this.novaGroup = value.novaGroup;
     });
   }
 }

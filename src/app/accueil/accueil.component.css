@@ -1,5 +1,13 @@
 img {
-  width: 150px;
+  height: 150px;
+  width: auto;
+}
+.label {
+  height: 50px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 p {
   width: 140px;
