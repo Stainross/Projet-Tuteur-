@@ -1,10 +1,11 @@
 <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
 <script src="node_modules/quagga/quagga.min.js"></script>
-<div id="interactive" class="viewport">
-	<!-- QuaggaJS ici -->
-  </div>
 
-<div id="box" #inputBarcode>
+
+<div  id="interactive" class="viewport" *ngIf="scanned==false">
+	<!-- QuaggaJS ici -->	
+</div>
+<div *ngIf="scanned" id="box">
 	<div id="score">
 		<h1>Ce produit est bon pour vous</h1>
 		<h2>Allergènes: {{allergens}}</h2>
