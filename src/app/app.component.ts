@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private http: HttpClient){}
   async onSubmit(){
     console.log("connexion");
-    const data = await this.http.get('http://localhost:8000/api/users', {
+    const data = await this.http.get('https://projet-tuteure-42fc0.web.app:8000/api/users', {
         responseType: "json"
       }).toPromise();
       
