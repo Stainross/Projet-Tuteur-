@@ -1,5 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  BASE_URL: 'https://projet-tuteure-42fc0.web.app/'
 };
 
 /*
