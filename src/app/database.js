@@ -39,8 +39,8 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             }else{
                 // Table just created, creating some rows
                 var insert = 'INSERT INTO liste (barcode,idfamille) VALUES (?,?)'
-                db.run(insert, ["tedsdef","1"])
-                db.run(insert, ["dergrdesder","2"])
+                db.run(insert, ["7613035974685","1"])
+                db.run(insert, ["3017620422003","2"])
             }
         }); 
         

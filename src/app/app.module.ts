@@ -8,6 +8,7 @@ import { TopBarComponent } from "./top-bar/top-bar.component";
 import { AccueilComponent } from "./accueil/accueil.component";
 import { ProfilComponent } from "./profil/profil.component";
 import { HelloComponent } from "./accueil/hello.component";
+import { ListeComponent } from "./liste/liste.component";
 //import Quagga from "quagga/type-definitions/quagga";
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HelloComponent } from "./accueil/hello.component";
     HttpClientModule,
     RouterModule.forRoot([
       { path: "", component: AccueilComponent },
-      { path: "profil", component: ProfilComponent }
+      { path: "profil", component: ProfilComponent },
+      { path: "liste", component: ListeComponent }
     ])
   ],
   declarations: [
@@ -25,9 +27,13 @@ import { HelloComponent } from "./accueil/hello.component";
     TopBarComponent,
     //ProductListComponent,
     //ProductAlertsComponent,
+    ListeComponent,
     AccueilComponent,
     ProfilComponent,
     HelloComponent
+  ],
+  providers:[
+    AccueilComponent
   ],
   bootstrap: [AppComponent]
 })

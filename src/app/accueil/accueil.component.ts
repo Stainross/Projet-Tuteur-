@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Product } from "./accueil.product.model";
 import Quagga from "quagga";
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class ConfigService {
   constructor(private http: HttpClient) {}
 }
@@ -155,6 +157,7 @@ export class AccueilComponent implements OnInit{
       this.allergens = value.allergens;
       this.novaGroup = value.novaGroup;
     });
+
   }
 }
 

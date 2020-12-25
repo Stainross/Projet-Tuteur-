@@ -1,6 +1,14 @@
-<app-top-bar></app-top-bar>
 
-<div class="container">
+<div class="connexion" *ngIf="connected==false">
+	<p>admin@example.com</p><p>admin123456</p>
+	<label>Mail</label>
+	<input type="text" #email/>
+	<label>Mot de passe</label>
+	<input type="text" #mdp/>
+	<button (click)="onSubmit()">Se connecter</button>
+</div>
+<app-top-bar *ngIf="connected"></app-top-bar>
+<div class="container" *ngIf="connected">
 	<router-outlet></router-outlet>
 </div>
 
