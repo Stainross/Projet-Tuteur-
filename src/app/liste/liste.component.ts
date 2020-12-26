@@ -13,7 +13,7 @@ export class ListeComponent implements OnInit{
     constructor(private http: HttpClient,private test:AccueilComponent){}
     async ngOnInit(): Promise<void> {
       this.productList=[];
-     const data = await this.http.get('https://projet-tuteure-42fc0.web.app:8000/api/listes', {
+     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         responseType: "json"
       }).toPromise();
      for(let key in data['data']){

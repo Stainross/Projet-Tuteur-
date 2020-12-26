@@ -16,7 +16,7 @@ export class ProfilComponent implements OnInit {
   constructor(private http:HttpClient) {}
 
   async ngOnInit() {
-    const data = await this.http.get('https://projet-tuteure-42fc0.web.app:8000/api/users', {
+    const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
     console.log(data);
