@@ -9,6 +9,7 @@ import { AccueilComponent } from "./accueil/accueil.component";
 import { ProfilComponent } from "./profil/profil.component";
 import { HelloComponent } from "./accueil/hello.component";
 import { ListeComponent } from "./liste/liste.component";
+import { FamilleComponent } from "./famille/famille.component";
 //import Quagga from "quagga/type-definitions/quagga";
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ListeComponent } from "./liste/liste.component";
     RouterModule.forRoot([
       { path: "", component: AccueilComponent },
       { path: "profil", component: ProfilComponent },
-      { path: "liste", component: ListeComponent }
+      { path: "liste", component: ListeComponent },
+      { path: "famille", component: FamilleComponent }
     ])
   ],
   declarations: [
@@ -30,6 +32,7 @@ import { ListeComponent } from "./liste/liste.component";
     ListeComponent,
     AccueilComponent,
     ProfilComponent,
+    FamilleComponent,
     HelloComponent
   ],
   providers:[

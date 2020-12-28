@@ -17,7 +17,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! C:\Users\leclerc\Documents\IUT\2eme année\Projet Tuteuré\Dossier_git_projet\Projet-Tuteure\src\main.ts */
+      /*! C:\Users\Admin\Documents\IUT\projet4\Projet-Tuteure\src\main.ts */
       "zUnb");
       /***/
     },
@@ -58,7 +58,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<p>test</p>\r\n<ul *ngFor=\"let product of productList\">\r\n    <li>Nom: {{product.name}} Allergènes: {{product.allergens}}</li>    \r\n</ul>";
+      __webpack_exports__["default"] = "<ul *ngFor=\"let product of productList\">\r\n    <li><img src=\"{{product.imageUrl}}\"/>Nom: {{product.name}} Allergènes: {{product.allergens}}</li>    \r\n</ul>";
       /***/
     },
 
@@ -175,12 +175,19 @@
       var _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ./profil.utilisateur.model */
       "ehmE");
+      /* harmony import */
+
+
+      var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../app.component */
+      "Sy1n");
 
       var ProfilComponent = /*#__PURE__*/function () {
-        function ProfilComponent(http) {
+        function ProfilComponent(http, appc) {
           _classCallCheck(this, ProfilComponent);
 
           this.http = http;
+          this.appc = appc;
           this.utilisateur = new _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__["Utilisateur"]();
         }
 
@@ -195,20 +202,22 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      _context.next = 2;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+
+                      _context.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
-                    case 2:
+                    case 3:
                       data = _context.sent;
                       console.log(data);
                       this.utilisateur = {
-                        id: data["data"][0]["id"],
-                        nom: data["data"][0]["nom"],
-                        prenom: data["data"][0]["prenom"],
-                        email: data["data"][0]["email"],
-                        mdp: data["data"][0]["mdp"]
+                        id: data["data"][this.appc.id]["id"],
+                        nom: data["data"][this.appc.id]["nom"],
+                        prenom: data["data"][this.appc.id]["prenom"],
+                        email: data["data"][this.appc.id]["email"],
+                        mdp: data["data"][this.appc.id]["mdp"]
                       };
                       Promise.resolve(this.utilisateur).then(function (value) {
                         _this.nom = value.nom;
@@ -216,7 +225,7 @@
                         _this.email = value.email;
                       });
 
-                    case 6:
+                    case 7:
                     case "end":
                       return _context.stop();
                   }
@@ -232,6 +241,8 @@
       ProfilComponent.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
+        }, {
+          type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
         }];
       };
 
@@ -692,13 +703,20 @@
       var _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ../accueil/accueil.component */
       "I2e7");
+      /* harmony import */
+
+
+      var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../app.component */
+      "Sy1n");
 
       var ListeComponent = /*#__PURE__*/function () {
-        function ListeComponent(http, test) {
+        function ListeComponent(http, test, appc) {
           _classCallCheck(this, ListeComponent);
 
           this.http = http;
           this.test = test;
+          this.appc = appc;
         }
 
         _createClass(ListeComponent, [{
@@ -710,37 +728,62 @@
                 while (1) {
                   switch (_context3.prev = _context3.next) {
                     case 0:
-                      this.productList = [];
-                      _context3.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+                      console.log("zersfszfsdef");
+                      this.productList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+
+                      _context3.next = 4;
+                      return this.http.get('http://localhost:3000/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
-                    case 3:
+                    case 4:
                       data = _context3.sent;
+                      console.log(this.appc.idfamille);
                       _context3.t0 = regeneratorRuntime.keys(data['data']);
 
-                    case 5:
+                    case 7:
                       if ((_context3.t1 = _context3.t0()).done) {
-                        _context3.next = 15;
+                        _context3.next = 26;
                         break;
                       }
 
                       key = _context3.t1.value;
+
+                      if (!(data['data'][key]['idfamille'] == this.appc.idfamille)) {
+                        _context3.next = 24;
+                        break;
+                      }
+
                       this.test.getProductData(data['data'][key]['barcode']);
                       _context3.t2 = this.productList;
-                      _context3.next = 11;
+                      _context3.next = 14;
                       return Promise.resolve(this.test.getProductData(data['data'][key]['barcode']));
 
-                    case 11:
+                    case 14:
                       _context3.t3 = _context3.sent;
 
                       _context3.t2.push.call(_context3.t2, _context3.t3);
 
-                      _context3.next = 5;
+                      _context3.t4 = console;
+                      _context3.next = 19;
+                      return Promise.resolve(this.test.getProductData(data['data'][key]['barcode']));
+
+                    case 19:
+                      _context3.next = 21;
+                      return _context3.sent.imageUrl;
+
+                    case 21:
+                      _context3.t5 = _context3.sent;
+
+                      _context3.t4.log.call(_context3.t4, _context3.t5);
+
+                      console.log("oui");
+
+                    case 24:
+                      _context3.next = 7;
                       break;
 
-                    case 15:
+                    case 26:
                     case "end":
                       return _context3.stop();
                   }
@@ -758,6 +801,8 @@
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
         }, {
           type: _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_5__["AccueilComponent"]
+        }, {
+          type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
         }];
       };
 
@@ -860,9 +905,10 @@
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      console.log("connexion");
+                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+
                       _context4.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -872,6 +918,9 @@
                       for (key in data['data']) {
                         if (md5(this.mdp.nativeElement.value) == data["data"][key]["mdp"] && this.email.nativeElement.value == data["data"][key]["email"]) {
                           console.log("Vous êtes connecté");
+                          console.log("Id =" + data["data"][key]["id"] + " idfamille = " + data["data"][key]["idfamille"]);
+                          this.id = data["data"][key]["id"];
+                          this.idfamille = data["data"][key]["idfamille"];
                           this.connected = true;
                         } else {
                           console.log("Identifiant ou mot de passe incorrect");
@@ -1031,7 +1080,13 @@
 
       var _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./liste/liste.component */
-      "K+Mw"); //import Quagga from "quagga/type-definitions/quagga";
+      "K+Mw");
+      /* harmony import */
+
+
+      var _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! ./famille/famille.component */
+      "ZkRK"); //import Quagga from "quagga/type-definitions/quagga";
 
 
       var AppModule = function AppModule() {
@@ -1048,10 +1103,13 @@
         }, {
           path: "liste",
           component: _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"]
+        }, {
+          path: "famille",
+          component: _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"]
         }])],
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _top_bar_top_bar_component__WEBPACK_IMPORTED_MODULE_7__["TopBarComponent"], //ProductListComponent,
         //ProductAlertsComponent,
-        _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"], _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"], _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"], _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__["HelloComponent"]],
+        _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"], _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"], _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"], _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"], _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__["HelloComponent"]],
         providers: [_accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
       })], AppModule);
@@ -1061,6 +1119,137 @@
       can be found in the LICENSE file at https://angular.io/license
       */
 
+      /***/
+    },
+
+    /***/
+    "ZkRK":
+    /*!**********************************************!*\
+      !*** ./src/app/famille/famille.component.ts ***!
+      \**********************************************/
+
+    /*! exports provided: FamilleComponent */
+
+    /***/
+    function ZkRK(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "FamilleComponent", function () {
+        return FamilleComponent;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_famille_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./famille.component.html */
+      "y8Ub");
+      /* harmony import */
+
+
+      var _famille_component_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./famille.component.css */
+      "cfB5");
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../app.component */
+      "Sy1n");
+      /* harmony import */
+
+
+      var _profil_profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../profil/profil.utilisateur.model */
+      "ehmE");
+
+      var FamilleComponent = /*#__PURE__*/function () {
+        function FamilleComponent(http, appc) {
+          _classCallCheck(this, FamilleComponent);
+
+          this.http = http;
+          this.appc = appc;
+          this.utilisateur = new _profil_profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_6__["Utilisateur"]();
+        }
+
+        _createClass(FamilleComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var data, key;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      this.userList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+
+                      _context5.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
+                        responseType: "json"
+                      }).toPromise();
+
+                    case 3:
+                      data = _context5.sent;
+
+                      for (key in data['data']) {
+                        if (data['data'][key]['idfamille'] == this.appc.idfamille) {
+                          this.userList.push(this.utilisateur = {
+                            id: data["data"][this.appc.id]["id"],
+                            nom: data["data"][this.appc.id]["nom"],
+                            prenom: data["data"][this.appc.id]["prenom"],
+                            email: data["data"][this.appc.id]["email"],
+                            mdp: data["data"][this.appc.id]["mdp"]
+                          });
+                        }
+                      }
+
+                    case 5:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
+          }
+        }]);
+
+        return FamilleComponent;
+      }();
+
+      FamilleComponent.ctorParameters = function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }, {
+          type: _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]
+        }];
+      };
+
+      FamilleComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        selector: "app-famille",
+        template: _raw_loader_famille_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_famille_component_css__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], FamilleComponent);
       /***/
     },
 
@@ -1080,7 +1269,27 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>{{nom}}</h2>\r\n<button>Nom</button><br/>\r\n<h2>{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>{{email}}</h2>\r\n<button>Mail</button><br/>\r\n<button>Mot de Passe</button><br/>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
+      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button>Mail</button><br/>\r\n<button>Mot de Passe</button><br/>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
+      /***/
+    },
+
+    /***/
+    "cfB5":
+    /*!***********************************************!*\
+      !*** ./src/app/famille/famille.component.css ***!
+      \***********************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function cfB5(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJmYW1pbGxlLmNvbXBvbmVudC5jc3MifQ== */";
       /***/
     },
 
@@ -1232,7 +1441,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ul>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/fJzC2XGn/accueil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['profil']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/P54GyQgx/profil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['liste']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/9rLpv024/liste.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/rDzJcTyf/famille.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n</ul>\r\n\r\n<style>\r\n\tli {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-right: 10px;\r\n\t}\r\n\r\n\th2 {\r\n\t\tcolor: white;\r\n\t}\r\n</style>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->";
+      __webpack_exports__["default"] = "<ul>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/fJzC2XGn/accueil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['profil']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/P54GyQgx/profil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['liste']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/9rLpv024/liste.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['famille']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/rDzJcTyf/famille.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n</ul>\r\n\r\n<style>\r\n\tli {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-right: 10px;\r\n\t}\r\n\r\n\th2 {\r\n\t\tcolor: white;\r\n\t}\r\n</style>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->";
       /***/
     },
 
@@ -1281,6 +1490,26 @@
       };
       /***/
 
+    },
+
+    /***/
+    "y8Ub":
+    /*!**************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/famille/famille.component.html ***!
+      \**************************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function y8Ub(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<p>Votre famille est composée de :</p>\r\n<ul *ngFor=\"let user of userList\">\r\n    <li>Nom: {{user.nom}} Prénom: {{user.prenom}}</li>\r\n</ul>";
+      /***/
     },
 
     /***/

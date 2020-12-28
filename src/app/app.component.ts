@@ -7,12 +7,16 @@ var md5 = require('md5')
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  id:string;
+  idfamille:string;
   @ViewChild('email') email: ElementRef;
   @ViewChild('mdp') mdp: ElementRef;
   connected=false;
   constructor(private http: HttpClient){}
   async onSubmit(){
     console.log("connexion");
+    //
+    //http://localhost:3000/api/users
     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
@@ -20,6 +24,9 @@ export class AppComponent {
      for(let key in data['data']){
         if(md5(this.mdp.nativeElement.value)==data["data"][key]["mdp"] && this.email.nativeElement.value==data["data"][key]["email"]){
           console.log("Vous êtes connecté");
+          console.log("Id ="+data["data"][key]["id"]+" idfamille = "+data["data"][key]["idfamille"]);
+          this.id=data["data"][key]["id"];
+          this.idfamille=data["data"][key]["idfamille"];
           this.connected=true;
         }
         else{

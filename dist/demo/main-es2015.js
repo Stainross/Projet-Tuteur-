@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\leclerc\Documents\IUT\2eme année\Projet Tuteuré\Dossier_git_projet\Projet-Tuteure\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\Admin\Documents\IUT\projet4\Projet-Tuteure\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -34,7 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>test</p>\r\n<ul *ngFor=\"let product of productList\">\r\n    <li>Nom: {{product.name}} Allergènes: {{product.allergens}}</li>    \r\n</ul>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ul *ngFor=\"let product of productList\">\r\n    <li><img src=\"{{product.imageUrl}}\"/>Nom: {{product.name}} Allergènes: {{product.allergens}}</li>    \r\n</ul>");
 
 /***/ }),
 
@@ -92,6 +92,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profil.utilisateur.model */ "ehmE");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+
 
 
 
@@ -99,22 +101,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ProfilComponent = class ProfilComponent {
-    constructor(http) {
+    constructor(http, appc) {
         this.http = http;
+        this.appc = appc;
         this.utilisateur = new _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__["Utilisateur"]();
     }
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            console.log("L'id est " + this.appc.id);
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
             (this.utilisateur = {
-                id: data["data"][0]["id"],
-                nom: data["data"][0]["nom"],
-                prenom: data["data"][0]["prenom"],
-                email: data["data"][0]["email"],
-                mdp: data["data"][0]["mdp"]
+                id: data["data"][this.appc.id]["id"],
+                nom: data["data"][this.appc.id]["nom"],
+                prenom: data["data"][this.appc.id]["prenom"],
+                email: data["data"][this.appc.id]["email"],
+                mdp: data["data"][this.appc.id]["mdp"]
             });
             Promise.resolve(this.utilisateur).then(value => {
                 this.nom = value.nom;
@@ -125,7 +130,8 @@ let ProfilComponent = class ProfilComponent {
     }
 };
 ProfilComponent.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] }
 ];
 ProfilComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -412,6 +418,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../accueil/accueil.component */ "I2e7");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+
 
 
 
@@ -419,26 +427,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ListeComponent = class ListeComponent {
-    constructor(http, test) {
+    constructor(http, test, appc) {
         this.http = http;
         this.test = test;
+        this.appc = appc;
     }
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            console.log("zersfszfsdef");
             this.productList = [];
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+            const data = yield this.http.get('http://localhost:3000/api/listes', {
                 responseType: "json"
             }).toPromise();
+            console.log(this.appc.idfamille);
             for (let key in data['data']) {
-                this.test.getProductData(data['data'][key]['barcode']);
-                this.productList.push(yield Promise.resolve(this.test.getProductData(data['data'][key]['barcode'])));
+                if (data['data'][key]['idfamille'] == this.appc.idfamille) {
+                    this.test.getProductData(data['data'][key]['barcode']);
+                    this.productList.push(yield Promise.resolve(this.test.getProductData(data['data'][key]['barcode'])));
+                    console.log(yield (yield Promise.resolve(this.test.getProductData(data['data'][key]['barcode']))).imageUrl);
+                    console.log("oui");
+                }
             }
         });
     }
 };
 ListeComponent.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
-    { type: _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_5__["AccueilComponent"] }
+    { type: _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_5__["AccueilComponent"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] }
 ];
 ListeComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -494,12 +511,16 @@ let AppComponent = class AppComponent {
     onSubmit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("connexion");
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             for (let key in data['data']) {
                 if (md5(this.mdp.nativeElement.value) == data["data"][key]["mdp"] && this.email.nativeElement.value == data["data"][key]["email"]) {
                     console.log("Vous êtes connecté");
+                    console.log("Id =" + data["data"][key]["id"] + " idfamille = " + data["data"][key]["idfamille"]);
+                    this.id = data["data"][key]["id"];
+                    this.idfamille = data["data"][key]["idfamille"];
                     this.connected = true;
                 }
                 else {
@@ -568,6 +589,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./profil/profil.component */ "8IyQ");
 /* harmony import */ var _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./accueil/hello.component */ "85Lx");
 /* harmony import */ var _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./liste/liste.component */ "K+Mw");
+/* harmony import */ var _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./famille/famille.component */ "ZkRK");
+
 
 
 
@@ -592,7 +615,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot([
                 { path: "", component: _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"] },
                 { path: "profil", component: _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"] },
-                { path: "liste", component: _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"] }
+                { path: "liste", component: _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"] },
+                { path: "famille", component: _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"] }
             ])
         ],
         declarations: [
@@ -603,6 +627,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"],
             _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"],
             _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"],
+            _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"],
             _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__["HelloComponent"]
         ],
         providers: [
@@ -621,6 +646,73 @@ can be found in the LICENSE file at https://angular.io/license
 
 /***/ }),
 
+/***/ "ZkRK":
+/*!**********************************************!*\
+  !*** ./src/app/famille/famille.component.ts ***!
+  \**********************************************/
+/*! exports provided: FamilleComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FamilleComponent", function() { return FamilleComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_famille_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./famille.component.html */ "y8Ub");
+/* harmony import */ var _famille_component_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./famille.component.css */ "cfB5");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+/* harmony import */ var _profil_profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../profil/profil.utilisateur.model */ "ehmE");
+
+
+
+
+
+
+
+let FamilleComponent = class FamilleComponent {
+    constructor(http, appc) {
+        this.http = http;
+        this.appc = appc;
+        this.utilisateur = new _profil_profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_6__["Utilisateur"]();
+    }
+    ngOnInit() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.userList = [];
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+            const data = yield this.http.get('http://localhost:3000/api/users', {
+                responseType: "json"
+            }).toPromise();
+            for (let key in data['data']) {
+                if (data['data'][key]['idfamille'] == this.appc.idfamille) {
+                    this.userList.push(this.utilisateur = {
+                        id: data["data"][this.appc.id]["id"],
+                        nom: data["data"][this.appc.id]["nom"],
+                        prenom: data["data"][this.appc.id]["prenom"],
+                        email: data["data"][this.appc.id]["email"],
+                        mdp: data["data"][this.appc.id]["mdp"]
+                    });
+                }
+            }
+        });
+    }
+};
+FamilleComponent.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"] }
+];
+FamilleComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        selector: "app-famille",
+        template: _raw_loader_famille_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_famille_component_css__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], FamilleComponent);
+
+
+
+/***/ }),
+
 /***/ "aFPW":
 /*!************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/profil/profil.component.html ***!
@@ -630,7 +722,20 @@ can be found in the LICENSE file at https://angular.io/license
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>{{nom}}</h2>\r\n<button>Nom</button><br/>\r\n<h2>{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>{{email}}</h2>\r\n<button>Mail</button><br/>\r\n<button>Mot de Passe</button><br/>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button>Mail</button><br/>\r\n<button>Mot de Passe</button><br/>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
+
+/***/ }),
+
+/***/ "cfB5":
+/*!***********************************************!*\
+  !*** ./src/app/famille/famille.component.css ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJmYW1pbGxlLmNvbXBvbmVudC5jc3MifQ== */");
 
 /***/ }),
 
@@ -722,7 +827,7 @@ can be found in the LICENSE file at https://angular.io/license
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ul>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/fJzC2XGn/accueil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['profil']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/P54GyQgx/profil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['liste']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/9rLpv024/liste.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/rDzJcTyf/famille.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n</ul>\r\n\r\n<style>\r\n\tli {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-right: 10px;\r\n\t}\r\n\r\n\th2 {\r\n\t\tcolor: white;\r\n\t}\r\n</style>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->");
+/* harmony default export */ __webpack_exports__["default"] = ("<ul>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['/']\">\r\n\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/fJzC2XGn/accueil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['profil']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/P54GyQgx/profil.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['liste']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/9rLpv024/liste.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n\t<li>\r\n\t\t<a [routerLink]=\"['famille']\">\r\n\t\t\t<div class=\"logo-image\">\r\n\t\t\t\t<img src=\"https://i.postimg.cc/rDzJcTyf/famille.png\" />\r\n      </div>\r\n\t\t</a>\r\n\t</li>\r\n</ul>\r\n\r\n<style>\r\n\tli {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-right: 10px;\r\n\t}\r\n\r\n\th2 {\r\n\t\tcolor: white;\r\n\t}\r\n</style>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->");
 
 /***/ }),
 
@@ -752,6 +857,19 @@ __webpack_require__.r(__webpack_exports__);
 class Product {
 }
 
+
+/***/ }),
+
+/***/ "y8Ub":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/famille/famille.component.html ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<p>Votre famille est composée de :</p>\r\n<ul *ngFor=\"let user of userList\">\r\n    <li>Nom: {{user.nom}} Prénom: {{user.prenom}}</li>\r\n</ul>");
 
 /***/ }),
 
