@@ -6,7 +6,15 @@ const PORT = 3000;
 const app = express();
 /* JSON body parse*/
 const bodyParser = require('body-parser');
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp({
+  apiKey: "AIzaSyCkilow6HKXzrmplX6ZQ3YGmpec_quDaiM",
+  authDomain: "projet-tuteure-42fc0.firebaseapp.com",
+  databaseURL: "https://projet-tuteure-42fc0-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "projet-tuteure-42fc0",
+  storageBucket: "projet-tuteure-42fc0.appspot.com",
+  messagingSenderId: "656839049499",
+  appId: "1:656839049499:web:72d5553674fd473cd593be"
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
