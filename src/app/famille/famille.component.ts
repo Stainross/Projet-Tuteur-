@@ -20,14 +20,14 @@ export class FamilleComponent{
      const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
-      for(let key in data['data']){
-        if(data['data'][key]['idfamille']==this.appc.idfamille){
+      for(let key in data){
+        if(data[key]['data']['idfamille']==this.appc.idfamille){
             this.userList.push(this.utilisateur = {
-                id: data["data"][this.appc.id]["id"],
-                nom: data["data"][this.appc.id]["nom"],
-                prenom: data["data"][this.appc.id]["prenom"],
-                email: data["data"][this.appc.id]["email"],
-                mdp: data["data"][this.appc.id]["mdp"]
+                id: data[key]["data"]["id"],
+                nom: data[key]["data"]["nom"],
+                prenom: data[key]["data"]["prenom"],
+                email: data[key]["data"]["email"],
+                mdp: data[key]["data"]["mdp"]
               });
        }
       }

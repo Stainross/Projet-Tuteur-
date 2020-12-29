@@ -24,13 +24,18 @@ export class ProfilComponent implements OnInit {
         responseType: "json"
       }).toPromise();
     console.log(data);
-    (this.utilisateur = {
-      id: data["data"][this.appc.id]["id"],
-      nom: data["data"][this.appc.id]["nom"],
-      prenom: data["data"][this.appc.id]["prenom"],
-      email: data["data"][this.appc.id]["email"],
-      mdp: data["data"][this.appc.id]["mdp"]
-    });
+    for(let key in data){
+      if(data[key]["id"]==this.appc.id){
+        (this.utilisateur = {
+          id: data[key]["data"]["id"],
+          nom: data[key]["data"]["nom"],
+          prenom: data[key]["data"]["prenom"],
+          email: data[key]["data"]["email"],
+          mdp: data[key]["data"]["mdp"]
+        });
+      }
+    }
+    
     Promise.resolve(this.utilisateur).then(value => {
       this.nom=value.nom;
       this.prenom=value.prenom;

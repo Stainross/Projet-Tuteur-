@@ -21,11 +21,11 @@ export class ListeComponent implements OnInit{
         responseType: "json"
       }).toPromise();
       console.log(this.appc.idfamille);
-     for(let key in data['data']){
-       if(data['data'][key]['idfamille']==this.appc.idfamille){
-        this.test.getProductData(data['data'][key]['barcode']);
-        this.productList.push(await Promise.resolve(this.test.getProductData(data['data'][key]['barcode'])));
-        console.log(await (await Promise.resolve(this.test.getProductData(data['data'][key]['barcode']))).imageUrl);
+     for(let key in data){
+       if(data[key]['data']['idfamille']==this.appc.idfamille){
+        this.test.getProductData(data[key]['data']['barcode']);
+        this.productList.push(await Promise.resolve(this.test.getProductData(data[key]['data']['barcode'])));
+        console.log(await (await Promise.resolve(this.test.getProductData(data[key]['data']['barcode']))).imageUrl);
         console.log("oui");
       }
      }

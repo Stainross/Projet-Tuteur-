@@ -20,13 +20,14 @@ export class AppComponent {
     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
+      console.log(data);
       
-     for(let key in data['data']){
-        if(md5(this.mdp.nativeElement.value)==data["data"][key]["mdp"] && this.email.nativeElement.value==data["data"][key]["email"]){
+     for(let key in data){
+        if(this.mdp.nativeElement.value==data[key]["data"]["mdp"] && this.email.nativeElement.value==data[key]["data"]["email"]){
           console.log("Vous êtes connecté");
-          console.log("Id ="+data["data"][key]["id"]+" idfamille = "+data["data"][key]["idfamille"]);
-          this.id=data["data"][key]["id"];
-          this.idfamille=data["data"][key]["idfamille"];
+          console.log("Id ="+data[key]["id"]+" idfamille = "+data[key]["data"]["idfamille"]);
+          this.id=data[key]["id"];
+          this.idfamille=data[key]["data"]["idfamille"];
           this.connected=true;
         }
         else{

@@ -109,18 +109,23 @@ let ProfilComponent = class ProfilComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("L'id est " + this.appc.id);
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
-            (this.utilisateur = {
-                id: data["data"][this.appc.id]["id"],
-                nom: data["data"][this.appc.id]["nom"],
-                prenom: data["data"][this.appc.id]["prenom"],
-                email: data["data"][this.appc.id]["email"],
-                mdp: data["data"][this.appc.id]["mdp"]
-            });
+            for (let key in data) {
+                if (data[key]["id"] == this.appc.id) {
+                    (this.utilisateur = {
+                        id: data[key]["data"]["id"],
+                        nom: data[key]["data"]["nom"],
+                        prenom: data[key]["data"]["prenom"],
+                        email: data[key]["data"]["email"],
+                        mdp: data[key]["data"]["mdp"]
+                    });
+                }
+            }
             Promise.resolve(this.utilisateur).then(value => {
                 this.nom = value.nom;
                 this.prenom = value.prenom;
@@ -436,16 +441,17 @@ let ListeComponent = class ListeComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("zersfszfsdef");
             this.productList = [];
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-            const data = yield this.http.get('http://localhost:3000/api/listes', {
+            //
+            //http://localhost:3000/api/listes
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                 responseType: "json"
             }).toPromise();
             console.log(this.appc.idfamille);
-            for (let key in data['data']) {
-                if (data['data'][key]['idfamille'] == this.appc.idfamille) {
-                    this.test.getProductData(data['data'][key]['barcode']);
-                    this.productList.push(yield Promise.resolve(this.test.getProductData(data['data'][key]['barcode'])));
-                    console.log(yield (yield Promise.resolve(this.test.getProductData(data['data'][key]['barcode']))).imageUrl);
+            for (let key in data) {
+                if (data[key]['data']['idfamille'] == this.appc.idfamille) {
+                    this.test.getProductData(data[key]['data']['barcode']);
+                    this.productList.push(yield Promise.resolve(this.test.getProductData(data[key]['data']['barcode'])));
+                    console.log(yield (yield Promise.resolve(this.test.getProductData(data[key]['data']['barcode']))).imageUrl);
                     console.log("oui");
                 }
             }
@@ -511,16 +517,18 @@ let AppComponent = class AppComponent {
     onSubmit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("connexion");
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
-            for (let key in data['data']) {
-                if (md5(this.mdp.nativeElement.value) == data["data"][key]["mdp"] && this.email.nativeElement.value == data["data"][key]["email"]) {
+            console.log(data);
+            for (let key in data) {
+                if (this.mdp.nativeElement.value == data[key]["data"]["mdp"] && this.email.nativeElement.value == data[key]["data"]["email"]) {
                     console.log("Vous êtes connecté");
-                    console.log("Id =" + data["data"][key]["id"] + " idfamille = " + data["data"][key]["idfamille"]);
-                    this.id = data["data"][key]["id"];
-                    this.idfamille = data["data"][key]["idfamille"];
+                    console.log("Id =" + data[key]["id"] + " idfamille = " + data[key]["data"]["idfamille"]);
+                    this.id = data[key]["id"];
+                    this.idfamille = data[key]["data"]["idfamille"];
                     this.connected = true;
                 }
                 else {
@@ -679,18 +687,19 @@ let FamilleComponent = class FamilleComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.userList = [];
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
-            for (let key in data['data']) {
-                if (data['data'][key]['idfamille'] == this.appc.idfamille) {
+            for (let key in data) {
+                if (data[key]['data']['idfamille'] == this.appc.idfamille) {
                     this.userList.push(this.utilisateur = {
-                        id: data["data"][this.appc.id]["id"],
-                        nom: data["data"][this.appc.id]["nom"],
-                        prenom: data["data"][this.appc.id]["prenom"],
-                        email: data["data"][this.appc.id]["email"],
-                        mdp: data["data"][this.appc.id]["mdp"]
+                        id: data[key]["data"]["id"],
+                        nom: data[key]["data"]["nom"],
+                        prenom: data[key]["data"]["prenom"],
+                        email: data[key]["data"]["email"],
+                        mdp: data[key]["data"]["mdp"]
                     });
                 }
             }

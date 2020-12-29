@@ -1,15 +1,17 @@
+const admin=require('firebase-admin');
 const functions = require('firebase-functions');
 const express = require('express');
-var db = require("../src/app/database.js")
+
 const PORT = 3000;
 const app = express();
 /* JSON body parse*/
 const bodyParser = require('body-parser');
+admin.initializeApp(functions.config().firebase);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    //http://localhost:5000
+    // Website you wish to allow to connecthttp://localhost:5000
+    //
     res.setHeader('Access-Control-Allow-Origin', 'https://projet-tuteure-42fc0.web.app');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -24,40 +26,41 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-app.get('/api/users', (req, res, next) => {
-console.info('/api/users call success ');
-//res.send('Utilisateurs');
-var sql = "select * from utilisateur"
-    var params = []
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-          //res.status(400).json({"error":err.message});
-          return;
-        }
-        res.json({
-            "message":"success",
-            "data":rows
-        })
-      });
-
+const db = admin.firestore();
+app.get('/api/users', async (req, res) => {
+  try {
+      const userQuerySnapshot = await db.collection('utilisateurs').get();
+      const users = [];
+      userQuerySnapshot.forEach(
+          (doc)=>{
+              users.push({
+                  id: doc.id,
+                  data:doc.data()
+          });
+          }
+      );
+      res.status(200).json(users);
+  } catch (error) {
+      res.status(500).send(error);
+  }
 });
-app.get('/api/listes', (req, res, next) => {
-    console.info('/api/users call success ');
-    //res.send('Listes');
-    var sql = "select * from liste"
-    var params = []
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
+app.get('/api/listes',async (req, res) => {
+  try {
+    const userQuerySnapshot = await db.collection('listes').get();
+    const users = [];
+    userQuerySnapshot.forEach(
+        (doc)=>{
+            users.push({
+                id: doc.id,
+                data:doc.data()
+        });
         }
-        res.json({
-            "message":"success",
-            "data":rows
-        })
-      });
-    });
-
+    );
+    res.status(200).json(users);
+} catch (error) {
+    res.status(500).send(error);
+}
+  });
 app.listen(PORT, () => {
 console.info('Server is running on PORT:', PORT);
 });

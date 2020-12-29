@@ -197,28 +197,35 @@
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var _this = this;
 
-              var data;
+              var data, key;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      console.log("L'id est " + this.appc.id); //
+                      //http://localhost:3000/api/users
 
                       _context.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
                       data = _context.sent;
                       console.log(data);
-                      this.utilisateur = {
-                        id: data["data"][this.appc.id]["id"],
-                        nom: data["data"][this.appc.id]["nom"],
-                        prenom: data["data"][this.appc.id]["prenom"],
-                        email: data["data"][this.appc.id]["email"],
-                        mdp: data["data"][this.appc.id]["mdp"]
-                      };
+
+                      for (key in data) {
+                        if (data[key]["id"] == this.appc.id) {
+                          this.utilisateur = {
+                            id: data[key]["data"]["id"],
+                            nom: data[key]["data"]["nom"],
+                            prenom: data[key]["data"]["prenom"],
+                            email: data[key]["data"]["email"],
+                            mdp: data[key]["data"]["mdp"]
+                          };
+                        }
+                      }
+
                       Promise.resolve(this.utilisateur).then(function (value) {
                         _this.nom = value.nom;
                         _this.prenom = value.prenom;
@@ -729,17 +736,18 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       console.log("zersfszfsdef");
-                      this.productList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+                      this.productList = []; //
+                      //http://localhost:3000/api/listes
 
                       _context3.next = 4;
-                      return this.http.get('http://localhost:3000/api/listes', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
                     case 4:
                       data = _context3.sent;
                       console.log(this.appc.idfamille);
-                      _context3.t0 = regeneratorRuntime.keys(data['data']);
+                      _context3.t0 = regeneratorRuntime.keys(data);
 
                     case 7:
                       if ((_context3.t1 = _context3.t0()).done) {
@@ -749,15 +757,15 @@
 
                       key = _context3.t1.value;
 
-                      if (!(data['data'][key]['idfamille'] == this.appc.idfamille)) {
+                      if (!(data[key]['data']['idfamille'] == this.appc.idfamille)) {
                         _context3.next = 24;
                         break;
                       }
 
-                      this.test.getProductData(data['data'][key]['barcode']);
+                      this.test.getProductData(data[key]['data']['barcode']);
                       _context3.t2 = this.productList;
                       _context3.next = 14;
-                      return Promise.resolve(this.test.getProductData(data['data'][key]['barcode']));
+                      return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 14:
                       _context3.t3 = _context3.sent;
@@ -766,7 +774,7 @@
 
                       _context3.t4 = console;
                       _context3.next = 19;
-                      return Promise.resolve(this.test.getProductData(data['data'][key]['barcode']));
+                      return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 19:
                       _context3.next = 21;
@@ -905,29 +913,31 @@
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      console.log("connexion"); //
+                      //http://localhost:3000/api/users
 
                       _context4.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
                       data = _context4.sent;
+                      console.log(data);
 
-                      for (key in data['data']) {
-                        if (md5(this.mdp.nativeElement.value) == data["data"][key]["mdp"] && this.email.nativeElement.value == data["data"][key]["email"]) {
+                      for (key in data) {
+                        if (this.mdp.nativeElement.value == data[key]["data"]["mdp"] && this.email.nativeElement.value == data[key]["data"]["email"]) {
                           console.log("Vous êtes connecté");
-                          console.log("Id =" + data["data"][key]["id"] + " idfamille = " + data["data"][key]["idfamille"]);
-                          this.id = data["data"][key]["id"];
-                          this.idfamille = data["data"][key]["idfamille"];
+                          console.log("Id =" + data[key]["id"] + " idfamille = " + data[key]["data"]["idfamille"]);
+                          this.id = data[key]["id"];
+                          this.idfamille = data[key]["data"]["idfamille"];
                           this.connected = true;
                         } else {
                           console.log("Identifiant ou mot de passe incorrect");
                         }
                       }
 
-                    case 5:
+                    case 6:
                     case "end":
                       return _context4.stop();
                   }
@@ -1202,24 +1212,25 @@
                 while (1) {
                   switch (_context5.prev = _context5.next) {
                     case 0:
-                      this.userList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      this.userList = []; //
+                      //http://localhost:3000/api/users
 
                       _context5.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
                       data = _context5.sent;
 
-                      for (key in data['data']) {
-                        if (data['data'][key]['idfamille'] == this.appc.idfamille) {
+                      for (key in data) {
+                        if (data[key]['data']['idfamille'] == this.appc.idfamille) {
                           this.userList.push(this.utilisateur = {
-                            id: data["data"][this.appc.id]["id"],
-                            nom: data["data"][this.appc.id]["nom"],
-                            prenom: data["data"][this.appc.id]["prenom"],
-                            email: data["data"][this.appc.id]["email"],
-                            mdp: data["data"][this.appc.id]["mdp"]
+                            id: data[key]["data"]["id"],
+                            nom: data[key]["data"]["nom"],
+                            prenom: data[key]["data"]["prenom"],
+                            email: data[key]["data"]["email"],
+                            mdp: data[key]["data"]["mdp"]
                           });
                         }
                       }
