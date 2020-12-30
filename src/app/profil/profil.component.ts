@@ -18,9 +18,9 @@ export class ProfilComponent implements OnInit {
 
   async ngOnInit() {
     console.log("L'id est "+this.appc.id);
-    //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
     //
-    const data = await this.http.get('http://localhost:3000/api/users', {
+    //http://localhost:3000/api/users
+    const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
     console.log(data);

@@ -21,7 +21,7 @@ module.exports = __webpack_require__(/*! C:\Users\leclerc\Documents\IUT\2eme ann
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned && identifie\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n<div *ngIf=\"scanned && identifie==false\" id=\"box2\">\r\n\t<h1>Produit non identifié</h1>\r\n\t<button type=\"button\" (click)=\"anotherScan()\">Scanner de nouveau</button>\r\n</div>");
 
 /***/ }),
 
@@ -237,10 +237,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _accueil_component_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./accueil.component.css */ "EmOr");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _accueil_product_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./accueil.product.model */ "wJr2");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "Sy1n");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! quagga */ "igAG");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _accueil_product_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./accueil.product.model */ "wJr2");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! quagga */ "igAG");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -256,13 +258,20 @@ export class ConfigService {
   constructor(private http: HttpClient) {}
 }*/
 let AccueilComponent = class AccueilComponent {
-    constructor(httpClient, appc) {
+    constructor(httpClient, appc, router) {
         this.httpClient = httpClient;
         this.appc = appc;
+        this.router = router;
         this.url = "https://world.openfoodfacts.org/api/v0/product/";
-        this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_5__["Product"]();
+        this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_6__["Product"]();
+        this.name = "";
         this.barcode = "";
         this.scanned = false;
+        this.identifie = false;
+        this.novaGroup = "";
+        this.imageUrl = "";
+        this.nutriScore = "";
+        this.allergens = "";
         this.title = "app-projettut";
         this.ngOnInit();
     }
@@ -294,18 +303,38 @@ let AccueilComponent = class AccueilComponent {
                 responseType: "json"
             })
                 .toPromise();
-            return (this.product = {
-                name: data["product"]["product_name"],
-                novaGroup: data["product"]["nova_group"],
-                imageUrl: data["product"]["image_small_url"],
-                nutriScore: data["product"]["nutriscore_grade"],
-                allergens: data["product"]["allergens"].replace(/en:/gi, "")
-            });
+            console.log("madata " + data);
+            try {
+                this.product = {
+                    name: data["product"]["product_name"],
+                    novaGroup: data["product"]["nova_group"],
+                    imageUrl: data["product"]["image_small_url"],
+                    nutriScore: data["product"]["nutriscore_grade"],
+                    allergens: data["product"]["allergens"].replace(/en:/gi, "")
+                };
+            }
+            catch (error) {
+                this.product = {
+                    name: '',
+                    novaGroup: '0',
+                    imageUrl: '',
+                    nutriScore: '',
+                    allergens: ''
+                };
+            }
+            /*return (this.product = {
+              name: data["product"]["product_name"],
+              novaGroup: data["product"]["nova_group"],
+              imageUrl: data["product"]["image_small_url"],
+              nutriScore: data["product"]["nutriscore_grade"],
+              allergens: data["product"]["allergens"].replace(/en:/gi, "")
+            });*/
+            return this.product;
         });
     }
     scan() {
         setTimeout(() => {
-            quagga__WEBPACK_IMPORTED_MODULE_7___default.a.init({
+            quagga__WEBPACK_IMPORTED_MODULE_8___default.a.init({
                 inputStream: {
                     constraints: {
                         facingMode: 'environment' // restrict camera type
@@ -333,25 +362,37 @@ let AccueilComponent = class AccueilComponent {
                 }
                 else {
                     console.log("oui");
-                    quagga__WEBPACK_IMPORTED_MODULE_7___default.a.start();
-                    quagga__WEBPACK_IMPORTED_MODULE_7___default.a.onDetected((codeB) => {
+                    quagga__WEBPACK_IMPORTED_MODULE_8___default.a.start();
+                    quagga__WEBPACK_IMPORTED_MODULE_8___default.a.onDetected((codeB) => {
                         this.scanned = true;
                         console.log(codeB.codeResult.code);
                         this.barcode = codeB.codeResult.code;
                         this.setInformations(codeB.codeResult.code);
-                        quagga__WEBPACK_IMPORTED_MODULE_7___default.a.stop();
+                        quagga__WEBPACK_IMPORTED_MODULE_8___default.a.stop();
                     });
                 }
             });
         }, 1000);
+    }
+    anotherScan() {
+        this.scanned = false;
+        this.scan();
     }
     setInformations(barcode) {
         console.log("bien entré");
         console.log(barcode);
         this.scanned = true;
         Promise.resolve(this.getProductData(barcode)).then(value => {
-            this.name = value.name;
-            switch (value.novaGroup) {
+            if (value.name != "") {
+                this.name = value.name;
+                this.identifie = true;
+                console.log("le produit est introuvable");
+            }
+            else {
+                this.identifie = false;
+                return 0;
+            }
+            switch (Number(value.novaGroup)) {
                 case 1: {
                     value.novaGroup = "https://i.postimg.cc/sMLHBcT9/nova1.png";
                     break;
@@ -406,7 +447,8 @@ let AccueilComponent = class AccueilComponent {
 };
 AccueilComponent.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
-    { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] }
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
 ];
 AccueilComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

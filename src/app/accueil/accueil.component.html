@@ -5,7 +5,7 @@
 <div  id="interactive" class="viewport" *ngIf="scanned==false">
 	<!-- QuaggaJS ici -->	
 </div>
-<div *ngIf="scanned" id="box">
+<div *ngIf="scanned && identifie" id="box">
 	<div id="score">
 		<h1>Ce produit est bon pour vous</h1>
 		<h2>Allergènes: {{allergens}}</h2>
@@ -17,3 +17,7 @@
 		<h2>{{name}}</h2>
 		<p>Description du produit</p>
 	</div>
+<div *ngIf="scanned && identifie==false" id="box2">
+	<h1>Produit non identifié</h1>
+	<button type="button" (click)="anotherScan()">Scanner de nouveau</button>
+</div>

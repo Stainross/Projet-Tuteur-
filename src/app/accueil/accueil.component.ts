@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 import { Product } from "./accueil.product.model";
 import * as app from '../../../functions/index.js';
 import { AppComponent } from '../app.component';
@@ -20,16 +21,17 @@ export class ConfigService {
 export class AccueilComponent implements OnInit{
   url = "https://world.openfoodfacts.org/api/v0/product/";
   product = new Product();
-  name: "";
+  name:string="";
   barcode="";
   public scanned=false;
-  novaGroup: "";
-  imageUrl: "";
-  nutriScore: "";
-  allergens: "";
+  public identifie=false;
+  novaGroup:string="";
+  imageUrl:string="";
+  nutriScore:string="";
+  allergens:string="";
   title = "app-projettut";
   errorMessage: string;  
-  constructor(private httpClient: HttpClient,private appc:AppComponent) {
+  constructor(private httpClient: HttpClient,private appc:AppComponent,private router: Router) {
     this.ngOnInit();
   }
   ngOnInit(): void {
@@ -38,7 +40,9 @@ export class AccueilComponent implements OnInit{
   async addToList(){
     console.log(this.barcode);
     console.log(this.appc.idfamille);
-    const data2 = await this.httpClient.post('http://localhost:3000/api/listes', {
+    //http://localhost:3000/api/listes
+    //
+    const data2 = await this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         barcode:this.barcode,
         idfamille:this.appc.idfamille
       }).subscribe({
@@ -57,13 +61,33 @@ export class AccueilComponent implements OnInit{
         responseType: "json"
       })
       .toPromise();
-    return (this.product = {
+      console.log("madata "+data);
+      try{
+        this.product = {
+          name: data["product"]["product_name"],
+          novaGroup: data["product"]["nova_group"],
+          imageUrl: data["product"]["image_small_url"],
+          nutriScore: data["product"]["nutriscore_grade"],
+          allergens: data["product"]["allergens"].replace(/en:/gi, "")
+        }
+      }catch(error){
+        this.product={
+          name:'',
+          novaGroup:'0',
+          imageUrl:'',
+          nutriScore:'',
+          allergens:''
+        }
+      }
+    /*return (this.product = {
       name: data["product"]["product_name"],
       novaGroup: data["product"]["nova_group"],
       imageUrl: data["product"]["image_small_url"],
       nutriScore: data["product"]["nutriscore_grade"],
       allergens: data["product"]["allergens"].replace(/en:/gi, "")
-    });
+    });*/
+    
+    return this.product;
   }
   scan(){
     setTimeout(()=>{Quagga.init({
@@ -119,13 +143,26 @@ export class AccueilComponent implements OnInit{
       });
     },1000);
   }
+  anotherScan(){
+    this.scanned=false;
+    this.scan();
+  }
   setInformations(barcode: string) {
     console.log("bien entré");
     console.log(barcode);
     this.scanned=true;
     Promise.resolve(this.getProductData(barcode)).then(value => {
-      this.name = value.name;
-      switch (value.novaGroup) {
+      if(value.name!="")
+      {
+        this.name = value.name;
+        this.identifie=true;
+        console.log("le produit est introuvable");
+      }
+      else{
+        this.identifie=false;
+        return 0;
+      } 
+      switch (Number(value.novaGroup)) {
         case 1: {
           value.novaGroup = "https://i.postimg.cc/sMLHBcT9/nova1.png";
           break;
