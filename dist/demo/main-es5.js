@@ -17,7 +17,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! C:\Users\Admin\Documents\IUT\projet4\Projet-Tuteure\src\main.ts */
+      /*! C:\Users\leclerc\Documents\IUT\2eme année\Projet Tuteuré\Dossier_git_projet2\Projet-Tuteure\src\main.ts */
       "zUnb");
       /***/
     },
@@ -38,7 +38,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n";
+      __webpack_exports__["default"] = "<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n";
       /***/
     },
 
@@ -202,11 +202,11 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      console.log("L'id est " + this.appc.id); //
-                      //http://localhost:3000/api/users
+                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //
 
                       _context.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -371,19 +371,13 @@
       !*** ./src/app/accueil/accueil.component.ts ***!
       \**********************************************/
 
-    /*! exports provided: ConfigService, AccueilComponent */
+    /*! exports provided: AccueilComponent */
 
     /***/
     function I2e7(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "ConfigService", function () {
-        return ConfigService;
-      });
       /* harmony export (binding) */
 
 
@@ -429,37 +423,36 @@
       /* harmony import */
 
 
-      var quagga__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../app.component */
+      "Sy1n");
+      /* harmony import */
+
+
+      var quagga__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! quagga */
       "igAG");
       /* harmony import */
 
 
-      var quagga__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_6__);
+      var quagga__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_7__);
+      /*@Injectable({
+        providedIn:'root'
+      })
+      export class ConfigService {
+        constructor(private http: HttpClient) {}
+      }*/
 
-      var ConfigService = function ConfigService(http) {
-        _classCallCheck(this, ConfigService);
-
-        this.http = http;
-      };
-
-      ConfigService.ctorParameters = function () {
-        return [{
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
-        }];
-      };
-
-      ConfigService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
-        providedIn: 'root'
-      })], ConfigService);
 
       var AccueilComponent = /*#__PURE__*/function () {
-        function AccueilComponent(httpClient) {
+        function AccueilComponent(httpClient, appc) {
           _classCallCheck(this, AccueilComponent);
 
           this.httpClient = httpClient;
+          this.appc = appc;
           this.url = "https://world.openfoodfacts.org/api/v0/product/";
           this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_5__["Product"]();
+          this.barcode = "";
           this.scanned = false;
           this.title = "app-projettut";
           this.ngOnInit();
@@ -471,23 +464,60 @@
             this.scan();
           }
         }, {
-          key: "getProductData",
-          value: function getProductData(barcode) {
+          key: "addToList",
+          value: function addToList() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var data;
+              var _this2 = this;
+
+              var data2;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
+                      console.log(this.barcode);
+                      console.log(this.appc.idfamille);
+                      _context2.next = 4;
+                      return this.httpClient.post('http://localhost:3000/api/listes', {
+                        barcode: this.barcode,
+                        idfamille: this.appc.idfamille
+                      }).subscribe({
+                        error: function error(_error) {
+                          _this2.errorMessage = _error.message;
+                          console.error('There was an error!', _error);
+                        }
+                      });
+
+                    case 4:
+                      data2 = _context2.sent;
+                      console.log(data2);
+                      console.log("produit ajouté");
+
+                    case 7:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "getProductData",
+          value: function getProductData(barcode) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var data;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
                       console.log(barcode);
-                      _context2.next = 3;
+                      _context3.next = 3;
                       return this.httpClient.get(this.url + barcode + ".json", {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context2.sent;
-                      return _context2.abrupt("return", this.product = {
+                      data = _context3.sent;
+                      return _context3.abrupt("return", this.product = {
                         name: data["product"]["product_name"],
                         novaGroup: data["product"]["nova_group"],
                         imageUrl: data["product"]["image_small_url"],
@@ -497,19 +527,19 @@
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }, {
           key: "scan",
           value: function scan() {
-            var _this2 = this;
+            var _this3 = this;
 
             setTimeout(function () {
-              quagga__WEBPACK_IMPORTED_MODULE_6___default.a.init({
+              quagga__WEBPACK_IMPORTED_MODULE_7___default.a.init({
                 inputStream: {
                   constraints: {
                     facingMode: 'environment' // restrict camera type
@@ -534,18 +564,19 @@
                 }
               }, function (err) {
                 if (err) {
-                  _this2.errorMessage = "Probleme initialisation QuaggaJS : ".concat(err);
-                  console.log(_this2.errorMessage);
+                  _this3.errorMessage = "Probleme initialisation QuaggaJS : ".concat(err);
+                  console.log(_this3.errorMessage);
                 } else {
                   console.log("oui");
-                  quagga__WEBPACK_IMPORTED_MODULE_6___default.a.start();
-                  quagga__WEBPACK_IMPORTED_MODULE_6___default.a.onDetected(function (codeB) {
-                    _this2.scanned = true;
+                  quagga__WEBPACK_IMPORTED_MODULE_7___default.a.start();
+                  quagga__WEBPACK_IMPORTED_MODULE_7___default.a.onDetected(function (codeB) {
+                    _this3.scanned = true;
                     console.log(codeB.codeResult.code);
+                    _this3.barcode = codeB.codeResult.code;
 
-                    _this2.setInformations(codeB.codeResult.code);
+                    _this3.setInformations(codeB.codeResult.code);
 
-                    quagga__WEBPACK_IMPORTED_MODULE_6___default.a.stop();
+                    quagga__WEBPACK_IMPORTED_MODULE_7___default.a.stop();
                   });
                 }
               });
@@ -554,13 +585,13 @@
         }, {
           key: "setInformations",
           value: function setInformations(barcode) {
-            var _this3 = this;
+            var _this4 = this;
 
             console.log("bien entré");
             console.log(barcode);
             this.scanned = true;
             Promise.resolve(this.getProductData(barcode)).then(function (value) {
-              _this3.name = value.name;
+              _this4.name = value.name;
 
               switch (value.novaGroup) {
                 case 1:
@@ -630,10 +661,10 @@
                   }
               }
 
-              _this3.imageUrl = value.imageUrl;
-              _this3.nutriScore = value.nutriScore;
-              _this3.allergens = value.allergens;
-              _this3.novaGroup = value.novaGroup;
+              _this4.imageUrl = value.imageUrl;
+              _this4.nutriScore = value.nutriScore;
+              _this4.allergens = value.allergens;
+              _this4.novaGroup = value.novaGroup;
             });
           }
         }]);
@@ -644,6 +675,8 @@
       AccueilComponent.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
+        }, {
+          type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
         }];
       };
 
@@ -729,74 +762,74 @@
         _createClass(ListeComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       console.log("zersfszfsdef");
-                      this.productList = []; //
-                      //http://localhost:3000/api/listes
+                      this.productList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+                      //
 
-                      _context3.next = 4;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+                      _context4.next = 4;
+                      return this.http.get('http://localhost:3000/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
                     case 4:
-                      data = _context3.sent;
+                      data = _context4.sent;
                       console.log(this.appc.idfamille);
-                      _context3.t0 = regeneratorRuntime.keys(data);
+                      _context4.t0 = regeneratorRuntime.keys(data);
 
                     case 7:
-                      if ((_context3.t1 = _context3.t0()).done) {
-                        _context3.next = 26;
+                      if ((_context4.t1 = _context4.t0()).done) {
+                        _context4.next = 26;
                         break;
                       }
 
-                      key = _context3.t1.value;
+                      key = _context4.t1.value;
 
                       if (!(data[key]['data']['idfamille'] == this.appc.idfamille)) {
-                        _context3.next = 24;
+                        _context4.next = 24;
                         break;
                       }
 
                       this.test.getProductData(data[key]['data']['barcode']);
-                      _context3.t2 = this.productList;
-                      _context3.next = 14;
+                      _context4.t2 = this.productList;
+                      _context4.next = 14;
                       return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 14:
-                      _context3.t3 = _context3.sent;
+                      _context4.t3 = _context4.sent;
 
-                      _context3.t2.push.call(_context3.t2, _context3.t3);
+                      _context4.t2.push.call(_context4.t2, _context4.t3);
 
-                      _context3.t4 = console;
-                      _context3.next = 19;
+                      _context4.t4 = console;
+                      _context4.next = 19;
                       return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 19:
-                      _context3.next = 21;
-                      return _context3.sent.imageUrl;
+                      _context4.next = 21;
+                      return _context4.sent.imageUrl;
 
                     case 21:
-                      _context3.t5 = _context3.sent;
+                      _context4.t5 = _context4.sent;
 
-                      _context3.t4.log.call(_context3.t4, _context3.t5);
+                      _context4.t4.log.call(_context4.t4, _context4.t5);
 
                       console.log("oui");
 
                     case 24:
-                      _context3.next = 7;
+                      _context4.next = 7;
                       break;
 
                     case 26:
                     case "end":
-                      return _context3.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee4, this);
             }));
           }
         }]);
@@ -907,22 +940,22 @@
         _createClass(AppComponent, [{
           key: "onSubmit",
           value: function onSubmit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
-                      console.log("connexion"); //
-                      //http://localhost:3000/api/users
+                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //
 
-                      _context4.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      _context5.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context4.sent;
+                      data = _context5.sent;
                       console.log(data);
 
                       for (key in data) {
@@ -939,10 +972,10 @@
 
                     case 6:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee5, this);
             }));
           }
         }]);
@@ -996,7 +1029,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\r\n<div class=\"connexion\" *ngIf=\"connected==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n";
+      __webpack_exports__["default"] = "\r\n<div class=\"connexion\" *ngIf=\"connected==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n  ";
       /***/
     },
 
@@ -1206,22 +1239,22 @@
         _createClass(FamilleComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      this.userList = []; //
-                      //http://localhost:3000/api/users
+                      this.userList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //
 
-                      _context5.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      _context6.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context5.sent;
+                      data = _context6.sent;
 
                       for (key in data) {
                         if (data[key]['data']['idfamille'] == this.appc.idfamille) {
@@ -1237,10 +1270,10 @@
 
                     case 5:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee6, this);
             }));
           }
         }]);

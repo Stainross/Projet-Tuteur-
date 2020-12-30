@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Admin\Documents\IUT\projet4\Projet-Tuteure\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\leclerc\Documents\IUT\2eme année\Projet Tuteuré\Dossier_git_projet2\Projet-Tuteure\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -21,7 +21,7 @@ module.exports = __webpack_require__(/*! C:\Users\Admin\Documents\IUT\projet4\Pr
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t</div>\r\n");
 
 /***/ }),
 
@@ -109,9 +109,9 @@ let ProfilComponent = class ProfilComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("L'id est " + this.appc.id);
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -226,12 +226,11 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./src/app/accueil/accueil.component.ts ***!
   \**********************************************/
-/*! exports provided: ConfigService, AccueilComponent */
+/*! exports provided: AccueilComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigService", function() { return ConfigService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccueilComponent", function() { return AccueilComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_accueil_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./accueil.component.html */ "1+jY");
@@ -239,8 +238,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _accueil_product_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./accueil.product.model */ "wJr2");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! quagga */ "igAG");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! quagga */ "igAG");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -249,31 +249,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ConfigService = class ConfigService {
-    constructor(http) {
-        this.http = http;
-    }
-};
-ConfigService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
-];
-ConfigService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
-        providedIn: 'root'
-    })
-], ConfigService);
-
+/*@Injectable({
+  providedIn:'root'
+})
+export class ConfigService {
+  constructor(private http: HttpClient) {}
+}*/
 let AccueilComponent = class AccueilComponent {
-    constructor(httpClient) {
+    constructor(httpClient, appc) {
         this.httpClient = httpClient;
+        this.appc = appc;
         this.url = "https://world.openfoodfacts.org/api/v0/product/";
         this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_5__["Product"]();
+        this.barcode = "";
         this.scanned = false;
         this.title = "app-projettut";
         this.ngOnInit();
     }
     ngOnInit() {
         this.scan();
+    }
+    addToList() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            console.log(this.barcode);
+            console.log(this.appc.idfamille);
+            const data2 = yield this.httpClient.post('http://localhost:3000/api/listes', {
+                barcode: this.barcode,
+                idfamille: this.appc.idfamille
+            }).subscribe({
+                error: error => {
+                    this.errorMessage = error.message;
+                    console.error('There was an error!', error);
+                }
+            });
+            console.log(data2);
+            console.log("produit ajouté");
+        });
     }
     getProductData(barcode) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -294,7 +305,7 @@ let AccueilComponent = class AccueilComponent {
     }
     scan() {
         setTimeout(() => {
-            quagga__WEBPACK_IMPORTED_MODULE_6___default.a.init({
+            quagga__WEBPACK_IMPORTED_MODULE_7___default.a.init({
                 inputStream: {
                     constraints: {
                         facingMode: 'environment' // restrict camera type
@@ -322,12 +333,13 @@ let AccueilComponent = class AccueilComponent {
                 }
                 else {
                     console.log("oui");
-                    quagga__WEBPACK_IMPORTED_MODULE_6___default.a.start();
-                    quagga__WEBPACK_IMPORTED_MODULE_6___default.a.onDetected((codeB) => {
+                    quagga__WEBPACK_IMPORTED_MODULE_7___default.a.start();
+                    quagga__WEBPACK_IMPORTED_MODULE_7___default.a.onDetected((codeB) => {
                         this.scanned = true;
                         console.log(codeB.codeResult.code);
+                        this.barcode = codeB.codeResult.code;
                         this.setInformations(codeB.codeResult.code);
-                        quagga__WEBPACK_IMPORTED_MODULE_6___default.a.stop();
+                        quagga__WEBPACK_IMPORTED_MODULE_7___default.a.stop();
                     });
                 }
             });
@@ -393,7 +405,8 @@ let AccueilComponent = class AccueilComponent {
     }
 };
 AccueilComponent.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] }
 ];
 AccueilComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -441,9 +454,9 @@ let ListeComponent = class ListeComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("zersfszfsdef");
             this.productList = [];
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
             //
-            //http://localhost:3000/api/listes
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+            const data = yield this.http.get('http://localhost:3000/api/listes', {
                 responseType: "json"
             }).toPromise();
             console.log(this.appc.idfamille);
@@ -517,9 +530,9 @@ let AppComponent = class AppComponent {
     onSubmit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("connexion");
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -571,7 +584,7 @@ can be found in the LICENSE file at https://angular.io/license
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\r\n<div class=\"connexion\" *ngIf=\"connected==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\r\n<div class=\"connexion\" *ngIf=\"connected==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n  ");
 
 /***/ }),
 
@@ -687,9 +700,9 @@ let FamilleComponent = class FamilleComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.userList = [];
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             for (let key in data) {

@@ -2,13 +2,15 @@ import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Product } from "./accueil.product.model";
+import * as app from '../../../functions/index.js';
+import { AppComponent } from '../app.component';
 import Quagga from "quagga";
-@Injectable({
+/*@Injectable({
   providedIn:'root'
 })
 export class ConfigService {
   constructor(private http: HttpClient) {}
-}
+}*/
 
 @Component({
   selector: "app-accueil",
@@ -19,6 +21,7 @@ export class AccueilComponent implements OnInit{
   url = "https://world.openfoodfacts.org/api/v0/product/";
   product = new Product();
   name: "";
+  barcode="";
   public scanned=false;
   novaGroup: "";
   imageUrl: "";
@@ -26,11 +29,26 @@ export class AccueilComponent implements OnInit{
   allergens: "";
   title = "app-projettut";
   errorMessage: string;  
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,private appc:AppComponent) {
     this.ngOnInit();
   }
   ngOnInit(): void {
     this.scan();
+  }
+  async addToList(){
+    console.log(this.barcode);
+    console.log(this.appc.idfamille);
+    const data2 = await this.httpClient.post('http://localhost:3000/api/listes', {
+        barcode:this.barcode,
+        idfamille:this.appc.idfamille
+      }).subscribe({
+        error: error => {
+            this.errorMessage = error.message;
+            console.error('There was an error!', error);
+        }
+    });
+      console.log(data2);
+    console.log("produit ajouté");
   }
   async getProductData(barcode: string) {
     console.log(barcode);
@@ -92,6 +110,7 @@ export class AccueilComponent implements OnInit{
           Quagga.onDetected((codeB) => {
               this.scanned=true;
               console.log(codeB.codeResult.code);
+              this.barcode=codeB.codeResult.code;
               this.setInformations(codeB.codeResult.code);
               Quagga.stop();
     

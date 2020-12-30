@@ -18,9 +18,9 @@ admin.initializeApp({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
-    // Website you wish to allow to connecthttp://localhost:5000
-    //
-    res.setHeader('Access-Control-Allow-Origin', 'https://projet-tuteure-42fc0.web.app');
+    // Website you wish to allow to connect
+    //https://projet-tuteure-42fc0.web.app
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
@@ -35,6 +35,7 @@ app.use(function (req, res, next) {
     next();
 });
 const db = admin.firestore();
+
 app.get('/api/users', async (req, res) => {
   try {
       const userQuerySnapshot = await db.collection('utilisateurs').get();
@@ -51,6 +52,19 @@ app.get('/api/users', async (req, res) => {
   } catch (error) {
       res.status(500).send(error);
   }
+});
+app.post('/api/listes',async (req,res)=>{
+    try{
+        const userQuerySnapshot=await db.collection('listes').add({barcode:req.body.barcode,idfamille:req.body.idfamille})
+        .then(function(docRef){
+            console.log("Document écrit avec l'id: ",docRef.id);
+        })
+        .catch(function(error){
+            console.error("Erreur d'ajout ",error);
+        });
+    }catch(error){
+        console.error("Erreur");
+    }
 });
 app.get('/api/listes',async (req, res) => {
   try {

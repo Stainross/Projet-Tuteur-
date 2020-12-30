@@ -13,7 +13,7 @@
 		<img class="label" src={{nutriScore}} />
 	</div>
 		<img [src]="imageUrl" />
-		<br /><button type="button">Ajouter à la liste</button>
+		<br /><button type="button" (click)="addToList()">Ajouter à la liste</button>
 		<h2>{{name}}</h2>
 		<p>Description du produit</p>
 	</div>
