@@ -25,6 +25,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "68Ew":
+/*!**************************************!*\
+  !*** ./src/app/profil/allergenes.ts ***!
+  \**************************************/
+/*! exports provided: Allergenes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Allergenes", function() { return Allergenes; });
+const Allergenes = [
+    {
+        id: 1,
+        nom: "lactose"
+    },
+    {
+        id: 2,
+        nom: "fruit a coque"
+    },
+    {
+        id: 3,
+        nom: "arachides"
+    },
+    {
+        id: 4,
+        nom: "gluten"
+    }
+];
+
+
+/***/ }),
+
 /***/ "6P3Q":
 /*!**********************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/liste/liste.component.html ***!
@@ -93,6 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profil.utilisateur.model */ "ehmE");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "Sy1n");
+/* harmony import */ var _allergenes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./allergenes */ "68Ew");
+
 
 
 
@@ -105,6 +139,35 @@ let ProfilComponent = class ProfilComponent {
         this.http = http;
         this.appc = appc;
         this.utilisateur = new _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__["Utilisateur"]();
+        this.allerg = [{ id: 1, nom: "lactose" }];
+        this.Allergenes = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"];
+    }
+    changeName() {
+        var valeur = prompt("Entrez le nouveau nom d'utilisateur");
+        this.nom = valeur;
+    }
+    changeMail() {
+        var valeur = prompt("Entrez la nouvelle adresse mail");
+        this.email = valeur;
+    }
+    changeMDP() {
+        var valeur = prompt("Entrez le nouveau mot de passe");
+        //this.mdp = valeur;
+    }
+    Ajoutallerg() {
+        /*var nom = "gluten";
+        var id = 2;
+        this.allerg.push({ id, nom });*/
+        for (let key in _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"]) {
+            if (_allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key][id] == this.selectedAlg) {
+                var id = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["id"];
+                var nom = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["nom"];
+                this.allerg.push({ id, nom });
+            }
+        }
+    }
+    getSelectedSkill() {
+        console.log(this.selectedAlg);
     }
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -282,6 +345,8 @@ let AccueilComponent = class AccueilComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log(this.barcode);
             console.log(this.appc.idfamille);
+            //
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
             const data2 = yield this.httpClient.post('http://localhost:3000/api/listes', {
                 barcode: this.barcode,
                 idfamille: this.appc.idfamille
@@ -673,6 +738,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot([
@@ -786,7 +852,7 @@ FamilleComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button>Mail</button><br/>\r\n<button>Mot de Passe</button><br/>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
 
 /***/ }),
 

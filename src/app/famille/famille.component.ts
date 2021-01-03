@@ -15,9 +15,9 @@ export class FamilleComponent{
 
     async ngOnInit(){
         this.userList=[];
+        //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
         //
-        //http://localhost:3000/api/users
-     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+     const data = await this.http.get('http://localhost:3000/api/users', {
         responseType: "json"
       }).toPromise();
       for(let key in data){
