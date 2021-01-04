@@ -40,9 +40,9 @@ export class AccueilComponent implements OnInit{
   async addToList(){
     console.log(this.barcode);
     console.log(this.appc.idfamille);
+    //http://localhost:3000/api/listes
     //
-    //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-    const data2 = await this.httpClient.post('http://localhost:3000/api/listes', {
+    const data2 = await this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         barcode:this.barcode,
         idfamille:this.appc.idfamille
       }).subscribe({

@@ -36,7 +36,7 @@ export class ProfilComponent implements OnInit {
     var id = 2;
     this.allerg.push({ id, nom });*/
     for(let key in Allergenes){
-      if(Allergenes[key][id]==this.selectedAlg)
+      if(Allergenes[key]["id"]==this.selectedAlg)
       {
         var id = Allergenes[key]["id"];
         var nom = Allergenes[key]["nom"];
@@ -51,9 +51,9 @@ export class ProfilComponent implements OnInit {
   }
   async ngOnInit() {
     console.log("L'id est "+this.appc.id);
-    //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
     //
-    const data = await this.http.get('http://localhost:3000/api/users', {
+    //http://localhost:3000/api/users
+    const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
     console.log(data);

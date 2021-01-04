@@ -1,35 +1,10 @@
-<ul>
-	<li>
-		<a [routerLink]="['/']">
 
-			<div class="logo-image">
-				<img src="https://i.postimg.cc/fJzC2XGn/accueil.png" />
-      </div>
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['profil']">
-			<div class="logo-image">
-				<img src="https://i.postimg.cc/P54GyQgx/profil.png" />
-      </div>
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['liste']">
-			<div class="logo-image">
-				<img src="https://i.postimg.cc/9rLpv024/liste.png" />
-      </div>
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['famille']">
-			<div class="logo-image">
-				<img src="https://i.postimg.cc/rDzJcTyf/famille.png" />
-      </div>
-		</a>
-	</li>
-</ul>
-
+<header>
+	<a [routerLink]="['/']"><img src="https://i.postimg.cc/fJzC2XGn/accueil.png" alt="iconelogo" height="40px" width="40px"/></a>
+	<a [routerLink]="['profil']"><img src="https://i.postimg.cc/P54GyQgx/profil.png" alt="iconeprofile" height="40px" width="40px"/></a>
+	<a [routerLink]="['liste']"><img src="https://i.postimg.cc/9rLpv024/liste.png" alt="iconeliste" height="40px" width="40px"/></a>
+	<a [routerLink]="['famille']"><img src="https://i.postimg.cc/rDzJcTyf/famille.png" alt="iconefamille" height="40px" width="40px"/></a>
+</header>
 <style>
 	li {
 		display: inline-block;
