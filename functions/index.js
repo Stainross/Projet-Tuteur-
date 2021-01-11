@@ -1,7 +1,7 @@
 const admin=require('firebase-admin');
 const functions = require('firebase-functions');
 const express = require('express');
-
+const cors = require('cors');
 const PORT = 3000;
 const app = express();
 /* JSON body parse*/
@@ -17,23 +17,7 @@ admin.initializeApp({
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function (req, res, next) {
-    // Website you wish to allow to connecthttp://localhost:5000
-    //
-    res.setHeader('Access-Control-Allow-Origin', 'https://projet-tuteure-42fc0.web.app');
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
+app.use(cors({ origin: true }));
 const db = admin.firestore();
 
 app.get('/api/users', async (req, res) => {

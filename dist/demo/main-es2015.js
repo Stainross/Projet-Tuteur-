@@ -172,9 +172,9 @@ let ProfilComponent = class ProfilComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("L'id est " + this.appc.id);
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -345,9 +345,9 @@ let AccueilComponent = class AccueilComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log(this.barcode);
             console.log(this.appc.idfamille);
+            //http://localhost:3000/api/listes
             //
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-            const data2 = yield this.httpClient.post('http://localhost:3000/api/listes', {
+            const data2 = yield this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                 barcode: this.barcode,
                 idfamille: this.appc.idfamille
             }).subscribe({
@@ -561,9 +561,9 @@ let ListeComponent = class ListeComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("zersfszfsdef");
             this.productList = [];
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
             //
-            const data = yield this.http.get('http://localhost:3000/api/listes', {
+            //http://localhost:3000/api/listes
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                 responseType: "json"
             }).toPromise();
             console.log(this.appc.idfamille);
@@ -637,9 +637,9 @@ let AppComponent = class AppComponent {
     onSubmit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("connexion");
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -808,9 +808,9 @@ let FamilleComponent = class FamilleComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.userList = [];
-            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
             //
-            const data = yield this.http.get('http://localhost:3000/api/users', {
+            //http://localhost:3000/api/users
+            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                 responseType: "json"
             }).toPromise();
             for (let key in data) {

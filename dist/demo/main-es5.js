@@ -288,11 +288,11 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-                      //
+                      console.log("L'id est " + this.appc.id); //
+                      //http://localhost:3000/api/users
 
                       _context.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -574,11 +574,11 @@
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       console.log(this.barcode);
-                      console.log(this.appc.idfamille); //
-                      //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+                      console.log(this.appc.idfamille); //http://localhost:3000/api/listes
+                      //
 
                       _context2.next = 4;
-                      return this.httpClient.post('http://localhost:3000/api/listes', {
+                      return this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         barcode: this.barcode,
                         idfamille: this.appc.idfamille
                       }).subscribe({
@@ -907,11 +907,11 @@
                   switch (_context4.prev = _context4.next) {
                     case 0:
                       console.log("zersfszfsdef");
-                      this.productList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-                      //
+                      this.productList = []; //
+                      //http://localhost:3000/api/listes
 
                       _context4.next = 4;
-                      return this.http.get('http://localhost:3000/api/listes', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
@@ -1084,11 +1084,11 @@
                 while (1) {
                   switch (_context5.prev = _context5.next) {
                     case 0:
-                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-                      //
+                      console.log("connexion"); //
+                      //http://localhost:3000/api/users
 
                       _context5.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -1383,11 +1383,11 @@
                 while (1) {
                   switch (_context6.prev = _context6.next) {
                     case 0:
-                      this.userList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
-                      //
+                      this.userList = []; //
+                      //http://localhost:3000/api/users
 
                       _context6.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
