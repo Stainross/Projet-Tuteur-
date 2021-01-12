@@ -38,7 +38,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned && identifie\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t\t<section class=\"portfolio-experiment\">\r\n\t\t\t<a (click)=\"anotherScan()\">\r\n\t\t\t  <span class=\"text\">Réessayer</span>\r\n\t\t\t  <span class=\"line -right\"></span>\r\n\t\t\t  <span class=\"line -top\"></span>\r\n\t\t\t  <span class=\"line -left\"></span>\r\n\t\t\t  <span class=\"line -bottom\"></span>\r\n\t\t\t</a>\r\n\t\t  </section>\r\n\t</div>\r\n<div *ngIf=\"scanned && identifie==false\" id=\"box2\">\r\n\t\r\n<H1>Le produit scanné n'a pas été reconnu.\r\n</H1>\r\n    <section class=\"portfolio-experiment\">\r\n        <a (click)=\"anotherScan()\">\r\n          <span class=\"text\">Réessayer</span>\r\n          <span class=\"line -right\"></span>\r\n          <span class=\"line -top\"></span>\r\n          <span class=\"line -left\"></span>\r\n          <span class=\"line -bottom\"></span>\r\n        </a>\r\n      </section>\r\n\r\n</div>";
+      __webpack_exports__["default"] = "<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned && identifie\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1 *ngIf=\"allergique==false\">Ce produit est bon pour vous</h1>\r\n\t\t<h1 *ngIf=\"allergique\">Attention ce produit contient des substances dont vous êtes allergiques!</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\" *ngIf=\"alreadyadded==false\">Ajouter à la liste</button>\r\n\t\t<p *ngIf=\"alreadyadded\">Ce produit est dans votre liste</p>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t\t<section class=\"portfolio-experiment\">\r\n\t\t\t<a (click)=\"anotherScan()\">\r\n\t\t\t  <span class=\"text\">Réessayer</span>\r\n\t\t\t  <span class=\"line -right\"></span>\r\n\t\t\t  <span class=\"line -top\"></span>\r\n\t\t\t  <span class=\"line -left\"></span>\r\n\t\t\t  <span class=\"line -bottom\"></span>\r\n\t\t\t</a>\r\n\t\t  </section>\r\n\t</div>\r\n<div *ngIf=\"scanned && identifie==false\" id=\"box2\">\r\n\t\r\n<H1>Le produit scanné n'a pas été reconnu.\r\n</H1>\r\n    <section class=\"portfolio-experiment\">\r\n        <a (click)=\"anotherScan()\">\r\n          <span class=\"text\">Réessayer</span>\r\n          <span class=\"line -right\"></span>\r\n          <span class=\"line -top\"></span>\r\n          <span class=\"line -left\"></span>\r\n          <span class=\"line -bottom\"></span>\r\n        </a>\r\n      </section>\r\n\r\n</div>";
       /***/
     },
 
@@ -225,35 +225,76 @@
       "68Ew");
 
       var ProfilComponent = /*#__PURE__*/function () {
+        //allerg = [{ id: 1, nom: "lactose" }];
         function ProfilComponent(http, appc) {
           _classCallCheck(this, ProfilComponent);
 
           this.http = http;
           this.appc = appc;
           this.utilisateur = new _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__["Utilisateur"]();
-          this.allerg = [{
-            id: 1,
-            nom: "lactose"
-          }];
           this.Allergenes = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"];
         }
 
         _createClass(ProfilComponent, [{
           key: "changeName",
           value: function changeName() {
-            var valeur = prompt("Entrez le nouveau nom d'utilisateur");
+            var valeur = prompt("Entrez le nouveau nom");
             this.nom = valeur;
+            this.changeIntoDB();
+          }
+        }, {
+          key: "changeFirstName",
+          value: function changeFirstName() {
+            var valeur = prompt("Entrez le nouveau prénom");
+            this.prenom = valeur;
+            this.changeIntoDB();
           }
         }, {
           key: "changeMail",
           value: function changeMail() {
             var valeur = prompt("Entrez la nouvelle adresse mail");
             this.email = valeur;
+            this.changeIntoDB();
           }
         }, {
           key: "changeMDP",
           value: function changeMDP() {
-            var valeur = prompt("Entrez le nouveau mot de passe"); //this.mdp = valeur;
+            var valeur = prompt("Entrez le nouveau mot de passe");
+            this.mdp = valeur;
+            this.changeIntoDB();
+          }
+        }, {
+          key: "changeIntoDB",
+          value: function changeIntoDB() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var data;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.http.put('http://localhost:3000/api/users/' + this.appc.id, {
+                        prenom: this.prenom,
+                        nom: this.nom,
+                        email: this.email,
+                        mdp: this.mdp,
+                        allergenes: this.allerg
+                      }).subscribe({
+                        error: function error(_error) {
+                          console.error('There was an error!', _error);
+                        }
+                      });
+
+                    case 2:
+                      data = _context.sent;
+
+                    case 3:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "Ajoutallerg",
@@ -265,12 +306,20 @@
               if (_allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["id"] == this.selectedAlg) {
                 var id = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["id"];
                 var nom = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["nom"];
-                this.allerg.push({
+                var allergadded = false;
+
+                for (var key2 in this.allerg) {
+                  if (this.allerg[key2]["id"] == id) allergadded = true;
+                }
+
+                if (allergadded == false) this.allerg.push({
                   id: id,
                   nom: nom
                 });
               }
             }
+
+            this.changeIntoDB();
           }
         }, {
           key: "getSelectedSkill",
@@ -280,24 +329,24 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               var _this = this;
 
               var data, key;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
-                      console.log("L'id est " + this.appc.id); //
-                      //http://localhost:3000/api/users
+                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
-                      _context.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      _context2.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context.sent;
+                      data = _context2.sent;
                       console.log(data);
 
                       for (key in data) {
@@ -307,7 +356,8 @@
                             nom: data[key]["data"]["nom"],
                             prenom: data[key]["data"]["prenom"],
                             email: data[key]["data"]["email"],
-                            mdp: data[key]["data"]["mdp"]
+                            mdp: data[key]["data"]["mdp"],
+                            allerg: data[key]["data"]["allergenes"]
                           };
                         }
                       }
@@ -316,14 +366,16 @@
                         _this.nom = value.nom;
                         _this.prenom = value.prenom;
                         _this.email = value.email;
+                        _this.allerg = value.allerg;
+                        _this.appc.allerg = value.allerg;
                       });
 
                     case 7:
                     case "end":
-                      return _context.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee2, this);
             }));
           }
         }]);
@@ -521,13 +573,19 @@
       /* harmony import */
 
 
-      var quagga__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _profil_profil_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ../profil/profil.component */
+      "8IyQ");
+      /* harmony import */
+
+
+      var quagga__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! quagga */
       "igAG");
       /* harmony import */
 
 
-      var quagga__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_8__);
+      var quagga__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_9__);
       /*@Injectable({
         providedIn:'root'
       })
@@ -537,11 +595,12 @@
 
 
       var AccueilComponent = /*#__PURE__*/function () {
-        function AccueilComponent(httpClient, appc, router) {
+        function AccueilComponent(httpClient, appc, profil, router) {
           _classCallCheck(this, AccueilComponent);
 
           this.httpClient = httpClient;
           this.appc = appc;
+          this.profil = profil;
           this.router = router;
           this.url = "https://world.openfoodfacts.org/api/v0/product/";
           this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_6__["Product"]();
@@ -549,6 +608,8 @@
           this.barcode = "";
           this.scanned = false;
           this.identifie = false;
+          this.alreadyadded = false;
+          this.allergique = false;
           this.novaGroup = "";
           this.imageUrl = "";
           this.nutriScore = "";
@@ -565,59 +626,59 @@
         }, {
           key: "addToList",
           value: function addToList() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var _this2 = this;
 
               var data2;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
                       console.log(this.barcode);
-                      console.log(this.appc.idfamille); //http://localhost:3000/api/listes
-                      //
+                      console.log(this.appc.idfamille); //
+                      //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
-                      _context2.next = 4;
-                      return this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+                      _context3.next = 4;
+                      return this.httpClient.post('http://localhost:3000/api/listes', {
                         barcode: this.barcode,
                         idfamille: this.appc.idfamille
                       }).subscribe({
-                        error: function error(_error) {
-                          _this2.errorMessage = _error.message;
-                          console.error('There was an error!', _error);
+                        error: function error(_error2) {
+                          _this2.errorMessage = _error2.message;
+                          console.error('There was an error!', _error2);
                         }
                       });
 
                     case 4:
-                      data2 = _context2.sent;
+                      data2 = _context3.sent;
                       console.log(data2);
                       console.log("produit ajouté");
 
                     case 7:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }, {
           key: "getProductData",
           value: function getProductData(barcode) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var data;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       console.log(barcode);
-                      _context3.next = 3;
+                      _context4.next = 3;
                       return this.httpClient.get(this.url + barcode + ".json", {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context3.sent;
+                      data = _context4.sent;
                       console.log("madata " + data);
 
                       try {
@@ -646,14 +707,14 @@
                       });*/
 
 
-                      return _context3.abrupt("return", this.product);
+                      return _context4.abrupt("return", this.product);
 
                     case 7:
                     case "end":
-                      return _context3.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee4, this);
             }));
           }
         }, {
@@ -662,7 +723,7 @@
             var _this3 = this;
 
             setTimeout(function () {
-              quagga__WEBPACK_IMPORTED_MODULE_8___default.a.init({
+              quagga__WEBPACK_IMPORTED_MODULE_9___default.a.init({
                 inputStream: {
                   constraints: {
                     facingMode: 'environment' // restrict camera type
@@ -691,15 +752,15 @@
                   console.log(_this3.errorMessage);
                 } else {
                   console.log("oui");
-                  quagga__WEBPACK_IMPORTED_MODULE_8___default.a.start();
-                  quagga__WEBPACK_IMPORTED_MODULE_8___default.a.onDetected(function (codeB) {
+                  quagga__WEBPACK_IMPORTED_MODULE_9___default.a.start();
+                  quagga__WEBPACK_IMPORTED_MODULE_9___default.a.onDetected(function (codeB) {
                     _this3.scanned = true;
                     console.log(codeB.codeResult.code);
                     _this3.barcode = codeB.codeResult.code;
 
                     _this3.setInformations(codeB.codeResult.code);
 
-                    quagga__WEBPACK_IMPORTED_MODULE_8___default.a.stop();
+                    quagga__WEBPACK_IMPORTED_MODULE_9___default.a.stop();
                   });
                 }
               });
@@ -801,6 +862,20 @@
               _this4.nutriScore = value.nutriScore;
               _this4.allergens = value.allergens;
               _this4.novaGroup = value.novaGroup;
+              _this4.allergique = false;
+
+              for (var key in _this4.allergens.split(",")) {
+                console.log("all du prod" + _this4.allergens.split(",")[key]);
+
+                for (var key2 in _this4.appc.allerg) {
+                  console.log("all user" + _this4.appc.allerg[key2]["nom"]);
+
+                  if (_this4.allergens.split(",")[key] == _this4.appc.allerg[key2]["nom"]) {
+                    console.log("Attention vous êtes allergique");
+                    _this4.allergique = true;
+                  }
+                }
+              }
             });
           }
         }]);
@@ -813,6 +888,8 @@
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
         }, {
           type: _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]
+        }, {
+          type: _profil_profil_component__WEBPACK_IMPORTED_MODULE_8__["ProfilComponent"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }];
@@ -900,74 +977,74 @@
         _createClass(ListeComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       console.log("zersfszfsdef");
-                      this.productList = []; //
-                      //http://localhost:3000/api/listes
+                      this.productList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+                      //
 
-                      _context4.next = 4;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+                      _context5.next = 4;
+                      return this.http.get('http://localhost:3000/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
                     case 4:
-                      data = _context4.sent;
+                      data = _context5.sent;
                       console.log(this.appc.idfamille);
-                      _context4.t0 = regeneratorRuntime.keys(data);
+                      _context5.t0 = regeneratorRuntime.keys(data);
 
                     case 7:
-                      if ((_context4.t1 = _context4.t0()).done) {
-                        _context4.next = 26;
+                      if ((_context5.t1 = _context5.t0()).done) {
+                        _context5.next = 26;
                         break;
                       }
 
-                      key = _context4.t1.value;
+                      key = _context5.t1.value;
 
                       if (!(data[key]['data']['idfamille'] == this.appc.idfamille)) {
-                        _context4.next = 24;
+                        _context5.next = 24;
                         break;
                       }
 
                       this.test.getProductData(data[key]['data']['barcode']);
-                      _context4.t2 = this.productList;
-                      _context4.next = 14;
+                      _context5.t2 = this.productList;
+                      _context5.next = 14;
                       return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 14:
-                      _context4.t3 = _context4.sent;
+                      _context5.t3 = _context5.sent;
 
-                      _context4.t2.push.call(_context4.t2, _context4.t3);
+                      _context5.t2.push.call(_context5.t2, _context5.t3);
 
-                      _context4.t4 = console;
-                      _context4.next = 19;
+                      _context5.t4 = console;
+                      _context5.next = 19;
                       return Promise.resolve(this.test.getProductData(data[key]['data']['barcode']));
 
                     case 19:
-                      _context4.next = 21;
-                      return _context4.sent.imageUrl;
+                      _context5.next = 21;
+                      return _context5.sent.imageUrl;
 
                     case 21:
-                      _context4.t5 = _context4.sent;
+                      _context5.t5 = _context5.sent;
 
-                      _context4.t4.log.call(_context4.t4, _context4.t5);
+                      _context5.t4.log.call(_context5.t4, _context5.t5);
 
                       console.log("oui");
 
                     case 24:
-                      _context4.next = 7;
+                      _context5.next = 7;
                       break;
 
                     case 26:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee5, this);
             }));
           }
         }]);
@@ -1078,22 +1155,22 @@
         _createClass(AppComponent, [{
           key: "onSubmit",
           value: function onSubmit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      console.log("connexion"); //
-                      //http://localhost:3000/api/users
+                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
-                      _context5.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      _context6.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context5.sent;
+                      data = _context6.sent;
                       console.log(data);
 
                       for (key in data) {
@@ -1102,6 +1179,7 @@
                           console.log("Id =" + data[key]["id"] + " idfamille = " + data[key]["data"]["idfamille"]);
                           this.id = data[key]["id"];
                           this.idfamille = data[key]["data"]["idfamille"];
+                          this.allerg = data[key]["data"]["allergenes"];
                           this.connected = true;
                         } else {
                           console.log("Identifiant ou mot de passe incorrect");
@@ -1110,10 +1188,10 @@
 
                     case 6:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee6, this);
             }));
           }
         }]);
@@ -1291,7 +1369,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _top_bar_top_bar_component__WEBPACK_IMPORTED_MODULE_7__["TopBarComponent"], //ProductListComponent,
         //ProductAlertsComponent,
         _liste_liste_component__WEBPACK_IMPORTED_MODULE_11__["ListeComponent"], _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"], _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"], _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"], _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__["HelloComponent"]],
-        providers: [_accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"]],
+        providers: [_accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"], _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
       })], AppModule);
       /*
@@ -1377,22 +1455,22 @@
         _createClass(FamilleComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var data, key;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
-                      this.userList = []; //
-                      //http://localhost:3000/api/users
+                      this.userList = []; //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/usershttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/utilisateurs
+                      //
 
-                      _context6.next = 3;
-                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+                      _context7.next = 3;
+                      return this.http.get('http://localhost:3000/api/users', {
                         responseType: "json"
                       }).toPromise();
 
                     case 3:
-                      data = _context6.sent;
+                      data = _context7.sent;
 
                       for (key in data) {
                         if (data[key]['data']['idfamille'] == this.appc.idfamille) {
@@ -1401,17 +1479,18 @@
                             nom: data[key]["data"]["nom"],
                             prenom: data[key]["data"]["prenom"],
                             email: data[key]["data"]["email"],
-                            mdp: data[key]["data"]["mdp"]
+                            mdp: data[key]["data"]["mdp"],
+                            allerg: data[key]["data"]["allergenes"]
                           });
                         }
                       }
 
                     case 5:
                     case "end":
-                      return _context6.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee6, this);
+              }, _callee7, this);
             }));
           }
         }]);
@@ -1451,7 +1530,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
+      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button (click)=changeFirstName()>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
       /***/
     },
 

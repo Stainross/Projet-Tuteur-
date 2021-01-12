@@ -9,14 +9,15 @@ var md5 = require('md5')
 export class AppComponent {
   id:string;
   idfamille:string;
+  allerg: [{id:number,nom:string}];
   @ViewChild('email') email: ElementRef;
   @ViewChild('mdp') mdp: ElementRef;
   connected=false;
   constructor(private http: HttpClient){}
   async onSubmit(){
     console.log("connexion");
-    //
     //http://localhost:3000/api/users
+    //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
@@ -28,6 +29,7 @@ export class AppComponent {
           console.log("Id ="+data[key]["id"]+" idfamille = "+data[key]["data"]["idfamille"]);
           this.id=data[key]["id"];
           this.idfamille=data[key]["data"]["idfamille"];
+          this.allerg=data[key]["data"]["allergenes"];
           this.connected=true;
         }
         else{

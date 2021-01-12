@@ -15,7 +15,7 @@ export class ListeComponent implements OnInit{
     async ngOnInit(): Promise<void> {
       console.log("zersfszfsdef");
       this.productList=[];
-      //
+      //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
       //http://localhost:3000/api/listes
      const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         responseType: "json"

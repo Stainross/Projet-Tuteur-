@@ -7,13 +7,15 @@
 </div>
 <div *ngIf="scanned && identifie" id="box">
 	<div id="score">
-		<h1>Ce produit est bon pour vous</h1>
+		<h1 *ngIf="allergique==false">Ce produit est bon pour vous</h1>
+		<h1 *ngIf="allergique">Attention ce produit contient des substances dont vous êtes allergiques!</h1>
 		<h2>Allergènes: {{allergens}}</h2>
 		<img class="label" src={{novaGroup}} />
 		<img class="label" src={{nutriScore}} />
 	</div>
 		<img [src]="imageUrl" />
-		<br /><button type="button" (click)="addToList()">Ajouter à la liste</button>
+		<br /><button type="button" (click)="addToList()" *ngIf="alreadyadded==false">Ajouter à la liste</button>
+		<p *ngIf="alreadyadded">Ce produit est dans votre liste</p>
 		<h2>{{name}}</h2>
 		<p>Description du produit</p>
 		<section class="portfolio-experiment">

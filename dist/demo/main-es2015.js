@@ -21,7 +21,7 @@ module.exports = __webpack_require__(/*! C:\Users\leclerc\Documents\IUT\2eme ann
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned && identifie\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1>Ce produit est bon pour vous</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\">Ajouter à la liste</button>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t\t<section class=\"portfolio-experiment\">\r\n\t\t\t<a (click)=\"anotherScan()\">\r\n\t\t\t  <span class=\"text\">Réessayer</span>\r\n\t\t\t  <span class=\"line -right\"></span>\r\n\t\t\t  <span class=\"line -top\"></span>\r\n\t\t\t  <span class=\"line -left\"></span>\r\n\t\t\t  <span class=\"line -bottom\"></span>\r\n\t\t\t</a>\r\n\t\t  </section>\r\n\t</div>\r\n<div *ngIf=\"scanned && identifie==false\" id=\"box2\">\r\n\t\r\n<H1>Le produit scanné n'a pas été reconnu.\r\n</H1>\r\n    <section class=\"portfolio-experiment\">\r\n        <a (click)=\"anotherScan()\">\r\n          <span class=\"text\">Réessayer</span>\r\n          <span class=\"line -right\"></span>\r\n          <span class=\"line -top\"></span>\r\n          <span class=\"line -left\"></span>\r\n          <span class=\"line -bottom\"></span>\r\n        </a>\r\n      </section>\r\n\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\r\n<script src=\"node_modules/quagga/quagga.min.js\"></script>\r\n\r\n\r\n<div  id=\"interactive\" class=\"viewport\" *ngIf=\"scanned==false\">\r\n\t<!-- QuaggaJS ici -->\t\r\n</div>\r\n<div *ngIf=\"scanned && identifie\" id=\"box\">\r\n\t<div id=\"score\">\r\n\t\t<h1 *ngIf=\"allergique==false\">Ce produit est bon pour vous</h1>\r\n\t\t<h1 *ngIf=\"allergique\">Attention ce produit contient des substances dont vous êtes allergiques!</h1>\r\n\t\t<h2>Allergènes: {{allergens}}</h2>\r\n\t\t<img class=\"label\" src={{novaGroup}} />\r\n\t\t<img class=\"label\" src={{nutriScore}} />\r\n\t</div>\r\n\t\t<img [src]=\"imageUrl\" />\r\n\t\t<br /><button type=\"button\" (click)=\"addToList()\" *ngIf=\"alreadyadded==false\">Ajouter à la liste</button>\r\n\t\t<p *ngIf=\"alreadyadded\">Ce produit est dans votre liste</p>\r\n\t\t<h2>{{name}}</h2>\r\n\t\t<p>Description du produit</p>\r\n\t\t<section class=\"portfolio-experiment\">\r\n\t\t\t<a (click)=\"anotherScan()\">\r\n\t\t\t  <span class=\"text\">Réessayer</span>\r\n\t\t\t  <span class=\"line -right\"></span>\r\n\t\t\t  <span class=\"line -top\"></span>\r\n\t\t\t  <span class=\"line -left\"></span>\r\n\t\t\t  <span class=\"line -bottom\"></span>\r\n\t\t\t</a>\r\n\t\t  </section>\r\n\t</div>\r\n<div *ngIf=\"scanned && identifie==false\" id=\"box2\">\r\n\t\r\n<H1>Le produit scanné n'a pas été reconnu.\r\n</H1>\r\n    <section class=\"portfolio-experiment\">\r\n        <a (click)=\"anotherScan()\">\r\n          <span class=\"text\">Réessayer</span>\r\n          <span class=\"line -right\"></span>\r\n          <span class=\"line -top\"></span>\r\n          <span class=\"line -left\"></span>\r\n          <span class=\"line -bottom\"></span>\r\n        </a>\r\n      </section>\r\n\r\n</div>");
 
 /***/ }),
 
@@ -135,24 +135,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ProfilComponent = class ProfilComponent {
+    //allerg = [{ id: 1, nom: "lactose" }];
     constructor(http, appc) {
         this.http = http;
         this.appc = appc;
         this.utilisateur = new _profil_utilisateur_model__WEBPACK_IMPORTED_MODULE_5__["Utilisateur"]();
-        this.allerg = [{ id: 1, nom: "lactose" }];
         this.Allergenes = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"];
     }
     changeName() {
-        var valeur = prompt("Entrez le nouveau nom d'utilisateur");
+        var valeur = prompt("Entrez le nouveau nom");
         this.nom = valeur;
+        this.changeIntoDB();
+    }
+    changeFirstName() {
+        var valeur = prompt("Entrez le nouveau prénom");
+        this.prenom = valeur;
+        this.changeIntoDB();
     }
     changeMail() {
         var valeur = prompt("Entrez la nouvelle adresse mail");
         this.email = valeur;
+        this.changeIntoDB();
     }
     changeMDP() {
         var valeur = prompt("Entrez le nouveau mot de passe");
-        //this.mdp = valeur;
+        this.mdp = valeur;
+        this.changeIntoDB();
+    }
+    changeIntoDB() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const data = yield this.http.put('http://localhost:3000/api/users/' + this.appc.id, {
+                prenom: this.prenom,
+                nom: this.nom,
+                email: this.email,
+                mdp: this.mdp,
+                allergenes: this.allerg
+            }).subscribe({
+                error: error => {
+                    console.error('There was an error!', error);
+                }
+            });
+        });
     }
     Ajoutallerg() {
         /*var nom = "gluten";
@@ -162,9 +185,15 @@ let ProfilComponent = class ProfilComponent {
             if (_allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["id"] == this.selectedAlg) {
                 var id = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["id"];
                 var nom = _allergenes__WEBPACK_IMPORTED_MODULE_7__["Allergenes"][key]["nom"];
-                this.allerg.push({ id, nom });
+                var allergadded = false;
+                for (let key2 in this.allerg)
+                    if (this.allerg[key2]["id"] == id)
+                        allergadded = true;
+                if (allergadded == false)
+                    this.allerg.push({ id, nom });
             }
         }
+        this.changeIntoDB();
     }
     getSelectedSkill() {
         console.log(this.selectedAlg);
@@ -172,9 +201,9 @@ let ProfilComponent = class ProfilComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("L'id est " + this.appc.id);
-            //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+            //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -185,7 +214,8 @@ let ProfilComponent = class ProfilComponent {
                         nom: data[key]["data"]["nom"],
                         prenom: data[key]["data"]["prenom"],
                         email: data[key]["data"]["email"],
-                        mdp: data[key]["data"]["mdp"]
+                        mdp: data[key]["data"]["mdp"],
+                        allerg: data[key]["data"]["allergenes"]
                     });
                 }
             }
@@ -193,6 +223,8 @@ let ProfilComponent = class ProfilComponent {
                 this.nom = value.nom;
                 this.prenom = value.prenom;
                 this.email = value.email;
+                this.allerg = value.allerg;
+                this.appc.allerg = value.allerg;
             });
         });
     }
@@ -303,8 +335,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _accueil_product_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./accueil.product.model */ "wJr2");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app.component */ "Sy1n");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! quagga */ "igAG");
-/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _profil_profil_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../profil/profil.component */ "8IyQ");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! quagga */ "igAG");
+/* harmony import */ var quagga__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(quagga__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -321,9 +355,10 @@ export class ConfigService {
   constructor(private http: HttpClient) {}
 }*/
 let AccueilComponent = class AccueilComponent {
-    constructor(httpClient, appc, router) {
+    constructor(httpClient, appc, profil, router) {
         this.httpClient = httpClient;
         this.appc = appc;
+        this.profil = profil;
         this.router = router;
         this.url = "https://world.openfoodfacts.org/api/v0/product/";
         this.product = new _accueil_product_model__WEBPACK_IMPORTED_MODULE_6__["Product"]();
@@ -331,6 +366,8 @@ let AccueilComponent = class AccueilComponent {
         this.barcode = "";
         this.scanned = false;
         this.identifie = false;
+        this.alreadyadded = false;
+        this.allergique = false;
         this.novaGroup = "";
         this.imageUrl = "";
         this.nutriScore = "";
@@ -345,9 +382,9 @@ let AccueilComponent = class AccueilComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log(this.barcode);
             console.log(this.appc.idfamille);
-            //http://localhost:3000/api/listes
             //
-            const data2 = yield this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+            const data2 = yield this.httpClient.post('http://localhost:3000/api/listes', {
                 barcode: this.barcode,
                 idfamille: this.appc.idfamille
             }).subscribe({
@@ -399,7 +436,7 @@ let AccueilComponent = class AccueilComponent {
     }
     scan() {
         setTimeout(() => {
-            quagga__WEBPACK_IMPORTED_MODULE_8___default.a.init({
+            quagga__WEBPACK_IMPORTED_MODULE_9___default.a.init({
                 inputStream: {
                     constraints: {
                         facingMode: 'environment' // restrict camera type
@@ -427,13 +464,13 @@ let AccueilComponent = class AccueilComponent {
                 }
                 else {
                     console.log("oui");
-                    quagga__WEBPACK_IMPORTED_MODULE_8___default.a.start();
-                    quagga__WEBPACK_IMPORTED_MODULE_8___default.a.onDetected((codeB) => {
+                    quagga__WEBPACK_IMPORTED_MODULE_9___default.a.start();
+                    quagga__WEBPACK_IMPORTED_MODULE_9___default.a.onDetected((codeB) => {
                         this.scanned = true;
                         console.log(codeB.codeResult.code);
                         this.barcode = codeB.codeResult.code;
                         this.setInformations(codeB.codeResult.code);
-                        quagga__WEBPACK_IMPORTED_MODULE_8___default.a.stop();
+                        quagga__WEBPACK_IMPORTED_MODULE_9___default.a.stop();
                     });
                 }
             });
@@ -507,12 +544,24 @@ let AccueilComponent = class AccueilComponent {
             this.nutriScore = value.nutriScore;
             this.allergens = value.allergens;
             this.novaGroup = value.novaGroup;
+            this.allergique = false;
+            for (let key in this.allergens.split(",")) {
+                console.log("all du prod" + this.allergens.split(",")[key]);
+                for (let key2 in this.appc.allerg) {
+                    console.log("all user" + this.appc.allerg[key2]["nom"]);
+                    if (this.allergens.split(",")[key] == this.appc.allerg[key2]["nom"]) {
+                        console.log("Attention vous êtes allergique");
+                        this.allergique = true;
+                    }
+                }
+            }
         });
     }
 };
 AccueilComponent.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"] },
+    { type: _profil_profil_component__WEBPACK_IMPORTED_MODULE_8__["ProfilComponent"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
 ];
 AccueilComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
@@ -561,9 +610,9 @@ let ListeComponent = class ListeComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("zersfszfsdef");
             this.productList = [];
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
             //
-            //http://localhost:3000/api/listes
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+            const data = yield this.http.get('http://localhost:3000/api/listes', {
                 responseType: "json"
             }).toPromise();
             console.log(this.appc.idfamille);
@@ -637,9 +686,9 @@ let AppComponent = class AppComponent {
     onSubmit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("connexion");
-            //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+            //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             console.log(data);
@@ -649,6 +698,7 @@ let AppComponent = class AppComponent {
                     console.log("Id =" + data[key]["id"] + " idfamille = " + data[key]["data"]["idfamille"]);
                     this.id = data[key]["id"];
                     this.idfamille = data[key]["data"]["idfamille"];
+                    this.allerg = data[key]["data"]["allergenes"];
                     this.connected = true;
                 }
                 else {
@@ -760,7 +810,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _accueil_hello_component__WEBPACK_IMPORTED_MODULE_10__["HelloComponent"]
         ],
         providers: [
-            _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"]
+            _accueil_accueil_component__WEBPACK_IMPORTED_MODULE_8__["AccueilComponent"],
+            _profil_profil_component__WEBPACK_IMPORTED_MODULE_9__["ProfilComponent"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
     })
@@ -808,9 +859,9 @@ let FamilleComponent = class FamilleComponent {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.userList = [];
+            //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/usershttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/utilisateurs
             //
-            //http://localhost:3000/api/users
-            const data = yield this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
+            const data = yield this.http.get('http://localhost:3000/api/users', {
                 responseType: "json"
             }).toPromise();
             for (let key in data) {
@@ -820,7 +871,8 @@ let FamilleComponent = class FamilleComponent {
                         nom: data[key]["data"]["nom"],
                         prenom: data[key]["data"]["prenom"],
                         email: data[key]["data"]["email"],
-                        mdp: data[key]["data"]["mdp"]
+                        mdp: data[key]["data"]["mdp"],
+                        allerg: data[key]["data"]["allergenes"]
                     });
                 }
             }
@@ -852,7 +904,7 @@ FamilleComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
+/* harmony default export */ __webpack_exports__["default"] = ("<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button (click)=changeFirstName()>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>");
 
 /***/ }),
 

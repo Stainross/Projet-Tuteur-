@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Product } from "./accueil.product.model";
 import * as app from '../../../functions/index.js';
 import { AppComponent } from '../app.component';
+import { ProfilComponent } from '../profil/profil.component';
 import Quagga from "quagga";
 /*@Injectable({
   providedIn:'root'
@@ -25,13 +26,15 @@ export class AccueilComponent implements OnInit{
   barcode="";
   public scanned=false;
   public identifie=false;
+  public alreadyadded=false;
+  public allergique=false;
   novaGroup:string="";
   imageUrl:string="";
   nutriScore:string="";
   allergens:string="";
   title = "app-projettut";
   errorMessage: string;  
-  constructor(private httpClient: HttpClient,private appc:AppComponent,private router: Router) {
+  constructor(private httpClient: HttpClient,private appc:AppComponent, private profil:ProfilComponent,private router: Router) {
     this.ngOnInit();
   }
   ngOnInit(): void {
@@ -41,7 +44,7 @@ export class AccueilComponent implements OnInit{
     console.log(this.barcode);
     console.log(this.appc.idfamille);
     //http://localhost:3000/api/listes
-    //
+    //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
     const data2 = await this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         barcode:this.barcode,
         idfamille:this.appc.idfamille
@@ -212,6 +215,18 @@ export class AccueilComponent implements OnInit{
       this.nutriScore = value.nutriScore;
       this.allergens = value.allergens;
       this.novaGroup = value.novaGroup;
+      this.allergique=false;
+      for(let key in this.allergens.split(",")){
+        console.log("all du prod"+this.allergens.split(",")[key])
+        for(let key2 in this.appc.allerg){
+          console.log("all user"+this.appc.allerg[key2]["nom"]);
+          if(this.allergens.split(",")[key]==this.appc.allerg[key2]["nom"]){
+            console.log("Attention vous êtes allergique");
+            this.allergique=true;
+          }
+        }
+      }
+
     });
 
   }

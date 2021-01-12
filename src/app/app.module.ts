@@ -37,7 +37,8 @@ import { FamilleComponent } from "./famille/famille.component";
     HelloComponent
   ],
   providers:[
-    AccueilComponent
+    AccueilComponent,
+    ProfilComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -37,15 +37,40 @@ app.get('/api/users', async (req, res) => {
       res.status(500).send(error);
   }
 });
+app.get('/api/users/:userId', async (req,res) => {
+
+    const userId = req.params.userId; 
+    db.collection('utilisateurs').doc(userId).get()
+    .then(user => {
+        if(!user.exists) throw new Error('User not found');
+        res.status(200).json({id:user.id, data:user.data()})})
+    .catch(error => res.status(500).send(error));
+        
+});
+app.put('/api/users/:userId', async (req, res) => {
+    await db.collection('utilisateurs').doc(req.params.userId).set(req.body,{merge:true})
+    .then(()=> res.json({id:req.params.userId}))
+    .catch((error)=> res.status(500).send(error))
+
+});
 app.post('/api/listes',async (req,res)=>{
     try{
-        const userQuerySnapshot=await db.collection('listes').add({barcode:req.body.barcode,idfamille:req.body.idfamille})
-        .then(function(docRef){
-            console.log("Document écrit avec l'id: ",docRef.id);
-        })
-        .catch(function(error){
-            console.error("Erreur d'ajout ",error);
+        const query= db.collection("listes").where("barcode", "==", req.body.barcode).where("idfamille", "==", req.body.idfamille);
+        query.get().then(function(querySnapshot) {
+            if (querySnapshot.empty) {
+                const userQuerySnapshot=db.collection('listes').add({barcode:req.body.barcode,idfamille:req.body.idfamille})
+                .then(function(docRef){
+                    console.log("Document écrit avec l'id: ",docRef.id);
+                })
+                .catch(function(error){
+                    console.error("Erreur d'ajout ",error);
+                });
+            } else {
+                console.log("Produit déjà dans la liste");
+                alreadyadded=true;
+            }
         });
+        
     }catch(error){
         console.error("Erreur");
     }

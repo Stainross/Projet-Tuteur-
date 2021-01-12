@@ -4,4 +4,5 @@ export class Utilisateur {
     prenom: string;
     email: string;
     mdp: string;
+    allerg: [{id:number,nom:string}];
   }

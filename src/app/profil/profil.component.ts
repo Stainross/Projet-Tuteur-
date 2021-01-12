@@ -15,20 +15,46 @@ export class ProfilComponent implements OnInit {
   nom:string;
   prenom:string;
   email:string;
-  allerg = [{ id: 1, nom: "lactose" }];
+  mdp:string;
+  allerg: [{id:number,nom:string}];
+  //allerg = [{ id: 1, nom: "lactose" }];
   constructor(private http:HttpClient,private appc:AppComponent) {}
   Allergenes = Allergenes;
   public changeName() {
-    var valeur = prompt("Entrez le nouveau nom d'utilisateur");
+    var valeur = prompt("Entrez le nouveau nom");
     this.nom = valeur;
+    this.changeIntoDB();
+  }
+  public changeFirstName(){
+    var valeur = prompt("Entrez le nouveau prénom");
+    this.prenom = valeur;
+    this.changeIntoDB();
   }
   public changeMail() {
     var valeur = prompt("Entrez la nouvelle adresse mail");
     this.email = valeur;
+    this.changeIntoDB();
   }
   public changeMDP() {
     var valeur = prompt("Entrez le nouveau mot de passe");
-    //this.mdp = valeur;
+    this.mdp = valeur;
+    this.changeIntoDB();
+  }
+  public async changeIntoDB(){
+    //http://localhost:3000/api/users/
+    //
+    const data = await this.http.put('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users'+this.appc.id, {
+        prenom:this.prenom,
+        nom:this.nom,
+        email:this.email,
+        mdp:this.mdp,
+        allergenes:this.allerg
+      
+    }).subscribe({
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  });
   }
   selectedAlg: any;
   public Ajoutallerg() {
@@ -40,9 +66,12 @@ export class ProfilComponent implements OnInit {
       {
         var id = Allergenes[key]["id"];
         var nom = Allergenes[key]["nom"];
-        this.allerg.push({id, nom });
+        var allergadded=false;
+        for(let key2 in this.allerg)if(this.allerg[key2]["id"]==id)allergadded=true;
+        if(allergadded==false)this.allerg.push({id, nom });
       }
     }
+    this.changeIntoDB();
   }
 
   
@@ -51,8 +80,8 @@ export class ProfilComponent implements OnInit {
   }
   async ngOnInit() {
     console.log("L'id est "+this.appc.id);
-    //
     //http://localhost:3000/api/users
+    //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
     const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         responseType: "json"
       }).toPromise();
@@ -64,7 +93,8 @@ export class ProfilComponent implements OnInit {
           nom: data[key]["data"]["nom"],
           prenom: data[key]["data"]["prenom"],
           email: data[key]["data"]["email"],
-          mdp: data[key]["data"]["mdp"]
+          mdp: data[key]["data"]["mdp"],
+          allerg: data[key]["data"]["allergenes"]
         });
       }
     }
@@ -73,7 +103,8 @@ export class ProfilComponent implements OnInit {
       this.nom=value.nom;
       this.prenom=value.prenom;
       this.email=value.email;
-
+      this.allerg=value.allerg;
+      this.appc.allerg=value.allerg;
     })
 
 
