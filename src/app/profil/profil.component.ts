@@ -43,7 +43,7 @@ export class ProfilComponent implements OnInit {
   public async changeIntoDB(){
     //http://localhost:3000/api/users/
     //
-    const data = await this.http.put('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users'+this.appc.id, {
+    const data = await this.http.put('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users/'+this.appc.id, {
         prenom:this.prenom,
         nom:this.nom,
         email:this.email,
