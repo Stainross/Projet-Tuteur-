@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ul{
     
     width:50%;
@@ -43,3 +44,8 @@ h1{
 p{
     font: 200 12px/1.5 Georgia, Times New Roman, serif;
 }
+=======
+li{
+  list-style-type: none;
+}
+>>>>>>> 4a1882ac3dbb3809835f42cb4d6ce1dbf410c27f
