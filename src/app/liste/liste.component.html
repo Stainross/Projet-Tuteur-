@@ -1,11 +1,3 @@
-<<<<<<< HEAD
 <ul >
-    <li *ngFor="let product of productList"><img src="{{product.imageUrl}}"/><h1>{{product.name}}</h1><p>Allergènes: {{product.allergens}}</p><button (click)=Supprimer(product)>Supprimer</button></li>    
+    <li *ngFor="let product of productList"><img src="{{product.imageUrl}}"/><br /><h1>{{product.name}}</h1><br /><p>Allergènes: {{product.allergens}}</p><br /><button (click)=Supprimer(product)>Supprimer</button></li>    
 </ul>
-=======
-<ul *ngFor="let product of productList">
-     <li><img src="{{product.imageUrl}}"/><br/>
-        Nom: {{product.name}}<br/>
-        Allergènes: {{product.allergens}}</li> 
-</ul>
->>>>>>> 77e3e6ffe5eb2907802723fb3db8e2af381ad1d2
