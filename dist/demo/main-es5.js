@@ -94,7 +94,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ul >\r\n    <li *ngFor=\"let product of productList\"><img src=\"{{product.imageUrl}}\"/><h1>{{product.name}}</h1><p>Allergènes: {{product.allergens}}</p><button (click)=Supprimer(product)>Supprimer</button></li>    \r\n</ul>";
+      __webpack_exports__["default"] = "<ul >\r\n    <li *ngFor=\"let product of productList\"><img src=\"{{product.imageUrl}}\"/><br /><h1>{{product.name}}</h1><br /><p>Allergènes: {{product.allergens}}</p><br /><button (click)=Supprimer(product)>Supprimer</button></li>    \r\n</ul>\r\n";
       /***/
     },
 
@@ -273,7 +273,7 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return this.http.put('http://localhost:3000/api/users/' + this.appc.id, {
+                      return this.http.put('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users/' + this.appc.id, {
                         prenom: this.prenom,
                         nom: this.nom,
                         email: this.email,
@@ -322,6 +322,12 @@
             this.changeIntoDB();
           }
         }, {
+          key: "Retirer",
+          value: function Retirer(index) {
+            this.allerg.splice(index, 1);
+            this.changeIntoDB();
+          }
+        }, {
           key: "getSelectedSkill",
           value: function getSelectedSkill() {
             console.log(this.selectedAlg);
@@ -337,11 +343,11 @@
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      console.log("L'id est " + this.appc.id); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      console.log("L'id est " + this.appc.id); //http://localhost:3000/api/users
                       //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
                       _context2.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -415,7 +421,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "p {\r\n  font-family: Lato;\r\n}\r\nbody{\r\n  background-color :#1e90ff; \r\n  text-align: center;\r\n  margin-top: 1cm;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CO0FBQ0E7RUFDRSx5QkFBeUI7RUFDekIsa0JBQWtCO0VBQ2xCLGVBQWU7QUFDakIiLCJmaWxlIjoiYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJwIHtcclxuICBmb250LWZhbWlseTogTGF0bztcclxufVxyXG5ib2R5e1xyXG4gIGJhY2tncm91bmQtY29sb3IgOiMxZTkwZmY7IFxyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBtYXJnaW4tdG9wOiAxY207XHJcbn1cclxuXHJcbiJdfQ== */";
+      __webpack_exports__["default"] = "p {\r\n  font-family: Lato;\r\n}\r\nbody{\r\n  background-color :#A9CCE3; \r\n  text-align: center;\r\n  margin-top: 1cm;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CO0FBQ0E7RUFDRSx5QkFBeUI7RUFDekIsa0JBQWtCO0VBQ2xCLGVBQWU7QUFDakIiLCJmaWxlIjoiYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJwIHtcclxuICBmb250LWZhbWlseTogTGF0bztcclxufVxyXG5ib2R5e1xyXG4gIGJhY2tncm91bmQtY29sb3IgOiNBOUNDRTM7IFxyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBtYXJnaW4tdG9wOiAxY207XHJcbn1cclxuXHJcbiJdfQ== */";
       /***/
     },
 
@@ -499,7 +505,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "img {\r\n  height: 150px;\r\n  width: auto;\r\n}\r\n.label {\r\n  height: 50px;\r\n  margin-bottom: 0px;\r\n  margin-top: 0px;\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\np {\r\n  width: 140px;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n#box {\r\n  width: 100%;\r\n  text-align: center;\r\n  color: blue;\r\n}\r\n#score {\r\n  width: 100%;\r\n}\r\nbody{\r\n  background-color :#1e90ff; \r\n  text-align: center;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY3VlaWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixXQUFXO0FBQ2I7QUFDQTtFQUNFLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixrQkFBa0I7QUFDcEI7QUFDQTtFQUNFLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIscUJBQXFCO0FBQ3ZCO0FBQ0E7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLFdBQVc7QUFDYjtBQUNBO0VBQ0UsV0FBVztBQUNiO0FBQ0E7RUFDRSx5QkFBeUI7RUFDekIsa0JBQWtCO0FBQ3BCIiwiZmlsZSI6ImFjY3VlaWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImltZyB7XHJcbiAgaGVpZ2h0OiAxNTBweDtcclxuICB3aWR0aDogYXV0bztcclxufVxyXG4ubGFiZWwge1xyXG4gIGhlaWdodDogNTBweDtcclxuICBtYXJnaW4tYm90dG9tOiAwcHg7XHJcbiAgbWFyZ2luLXRvcDogMHB4O1xyXG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xyXG4gIG1hcmdpbi1yaWdodDogMjBweDtcclxufVxyXG5wIHtcclxuICB3aWR0aDogMTQwcHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG4jYm94IHtcclxuICB3aWR0aDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgY29sb3I6IGJsdWU7XHJcbn1cclxuI3Njb3JlIHtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5ib2R5e1xyXG4gIGJhY2tncm91bmQtY29sb3IgOiMxZTkwZmY7IFxyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4iXX0= */";
+      __webpack_exports__["default"] = "img {\r\n  height: 150px;\r\n  width: auto;\r\n}\r\n.label {\r\n  height: 50px;\r\n  margin-bottom: 0px;\r\n  margin-top: 0px;\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\np {\r\n  width: 140px;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n#box {\r\n  width: 100%;\r\n  text-align: center;\r\n  color: blue;\r\n}\r\n#score {\r\n  width: 100%;\r\n}\r\nbody{\r\n  background-color :#A9CCE3; \r\n  text-align: center;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjY3VlaWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixXQUFXO0FBQ2I7QUFDQTtFQUNFLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixrQkFBa0I7QUFDcEI7QUFDQTtFQUNFLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIscUJBQXFCO0FBQ3ZCO0FBQ0E7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLFdBQVc7QUFDYjtBQUNBO0VBQ0UsV0FBVztBQUNiO0FBQ0E7RUFDRSx5QkFBeUI7RUFDekIsa0JBQWtCO0FBQ3BCIiwiZmlsZSI6ImFjY3VlaWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImltZyB7XHJcbiAgaGVpZ2h0OiAxNTBweDtcclxuICB3aWR0aDogYXV0bztcclxufVxyXG4ubGFiZWwge1xyXG4gIGhlaWdodDogNTBweDtcclxuICBtYXJnaW4tYm90dG9tOiAwcHg7XHJcbiAgbWFyZ2luLXRvcDogMHB4O1xyXG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xyXG4gIG1hcmdpbi1yaWdodDogMjBweDtcclxufVxyXG5wIHtcclxuICB3aWR0aDogMTQwcHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG4jYm94IHtcclxuICB3aWR0aDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgY29sb3I6IGJsdWU7XHJcbn1cclxuI3Njb3JlIHtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5ib2R5e1xyXG4gIGJhY2tncm91bmQtY29sb3IgOiNBOUNDRTM7IFxyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4iXX0= */";
       /***/
     },
 
@@ -635,11 +641,11 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       console.log(this.barcode);
-                      console.log(this.appc.idfamille); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-                      //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+                      console.log(this.appc.idfamille); //
+                      //http://localhost:3000/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
                       _context3.next = 4;
-                      return this.httpClient.post('http://localhost:3000/api/listes', {
+                      return this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         barcode: this.barcode,
                         idfamille: this.appc.idfamille
                       }).subscribe({
@@ -985,10 +991,10 @@
                     case 0:
                       console.log("zersfszfsdef");
                       this.productList = []; //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
-                      //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
+                      //http://localhost:3000/api/listes
 
                       _context5.next = 4;
-                      return this.http.get('http://localhost:3000/api/listes', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
@@ -1056,74 +1062,57 @@
                 while (1) {
                   switch (_context6.prev = _context6.next) {
                     case 0:
-                      console.log("Suppression de la liste");
                       index = this.productList.indexOf(product);
                       this.productList.splice(index, 1);
                       console.log("index:" + index);
-                      _context6.next = 6;
-                      return this.http.get('http://localhost:3000/api/listes', {
+                      _context6.next = 5;
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
                         responseType: "json"
                       }).toPromise();
 
-                    case 6:
+                    case 5:
                       data = _context6.sent;
-                      console.log("Voici la data:" + data);
-                      _context6.t0 = console;
-                      _context6.t1 = product.name + " : ";
-                      _context6.next = 12;
-                      return this.test.getProductData(data[1]['data']['barcode']);
+                      _context6.t0 = regeneratorRuntime.keys(data);
 
-                    case 12:
-                      _context6.t2 = _context6.sent.name;
-                      _context6.t3 = _context6.t1 + _context6.t2;
-
-                      _context6.t0.log.call(_context6.t0, _context6.t3);
-
-                      _context6.t4 = regeneratorRuntime.keys(data);
-
-                    case 16:
-                      if ((_context6.t5 = _context6.t4()).done) {
-                        _context6.next = 33;
+                    case 7:
+                      if ((_context6.t1 = _context6.t0()).done) {
+                        _context6.next = 20;
                         break;
                       }
 
-                      key = _context6.t5.value;
-                      console.log("test");
-                      console.log(data[key]['data']['idfamille'] + " : " + this.appc.idfamille);
-                      console.log(data[key]['data']['barcode'] + " : " + product["barcode"]);
-                      _context6.t6 = data[key]['data']['idfamille'] == this.appc.idfamille;
+                      key = _context6.t1.value;
+                      _context6.t2 = data[key]['data']['idfamille'] == this.appc.idfamille;
 
-                      if (!_context6.t6) {
-                        _context6.next = 28;
+                      if (!_context6.t2) {
+                        _context6.next = 16;
                         break;
                       }
 
-                      _context6.next = 25;
+                      _context6.next = 13;
                       return this.test.getProductData(data[key]['data']['barcode']);
 
-                    case 25:
-                      _context6.t7 = _context6.sent.name;
-                      _context6.t8 = product.name;
-                      _context6.t6 = _context6.t7 == _context6.t8;
+                    case 13:
+                      _context6.t3 = _context6.sent.name;
+                      _context6.t4 = product.name;
+                      _context6.t2 = _context6.t3 == _context6.t4;
 
-                    case 28:
-                      if (!_context6.t6) {
-                        _context6.next = 31;
+                    case 16:
+                      if (!_context6.t2) {
+                        _context6.next = 18;
                         break;
                       }
 
-                      console.log("Oui tu supprimes");
-                      data2 = this.http["delete"]('http://localhost:3000/api/listes/' + data[key]['id'], {}).subscribe({
+                      data2 = this.http["delete"]('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes/' + data[key]['id'], {}).subscribe({
                         error: function error(_error3) {
                           console.error('There was an error!', _error3);
                         }
                       });
 
-                    case 31:
-                      _context6.next = 16;
+                    case 18:
+                      _context6.next = 7;
                       break;
 
-                    case 33:
+                    case 20:
                     case "end":
                       return _context6.stop();
                   }
@@ -1245,11 +1234,11 @@
                 while (1) {
                   switch (_context7.prev = _context7.next) {
                     case 0:
-                      console.log("connexion"); //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      console.log("connexion"); //http://localhost:3000/api/users
                       //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
 
                       _context7.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -1546,10 +1535,10 @@
                   switch (_context8.prev = _context8.next) {
                     case 0:
                       this.userList = []; //https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/utilisateurs
-                      //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users
+                      //http://localhost:3000/api/users
 
                       _context8.next = 3;
-                      return this.http.get('http://localhost:3000/api/users', {
+                      return this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                         responseType: "json"
                       }).toPromise();
 
@@ -1614,7 +1603,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button (click)=changeFirstName()>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg\"> {{allerg.nom}} </div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
+      __webpack_exports__["default"] = "<script src=\"../server.js\"></script>\r\n<h2>Nom:{{nom}}</h2>\r\n<button (click)=changeName()>Nom</button><br/>\r\n<h2>Prénom:{{prenom}}</h2>\r\n<button (click)=changeFirstName()>Prénom</button><br/>\r\n<h2>Adresse mail:{{email}}</h2>\r\n<button (click)=changeMail()>Mail</button><br/>\r\n<button (click)=changeMDP()>Mot de Passe</button><br/>\r\n\r\n\r\n<label>Allergene</label>\r\n<div *ngFor=\"let allerg of allerg;let myIndex=index;\"> {{allerg.nom}} <button (click)=Retirer(myIndex)>Retirer</button></div>\r\n<select id=\"allergenes\" [(ngModel)]=\"selectedAlg\"\r\n(change)=\"getSelectedSkill()\">\r\n    <option *ngFor=\"let alg of Allergenes\" [ngValue]=\"alg.id\">\r\n      {{alg.nom}}\r\n    </option>\r\n    \r\n</select>\r\n\r\n<button (click)=Ajoutallerg()>Ajouter</button>\r\n<style>\r\n\tbutton {\r\n\t\tmargin-top: 10px;\r\n\t}\r\n</style>";
       /***/
     },
 
@@ -1806,7 +1795,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ul{\r\n    \r\n    width:50%;\r\n    margin:auto;\r\n    margin-top:50px;\r\n    overflow:hidden;\r\n    \r\n    list-style-type: none;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\nli{\r\n    border:5px solid #c44569;\r\n    background:\r\n      radial-gradient(circle at 50% 0,\r\n        rgba(255,0,0,.5),\r\n        rgba(255,0,0,0) 70.71%),\r\n      radial-gradient(circle at 6.7% 75%,\r\n        rgba(0,0,255,.5),\r\n        rgba(0,0,255,0) 70.71%),\r\n      radial-gradient(circle at 93.3% 75%,\r\n        rgba(0,255,0,.5),\r\n        rgba(0,255,0,0) 70.71%) beige;\r\n    padding: 10px;\r\n    overflow: auto;\r\n    width:100%;\r\n    height:15%;\r\n    margin:15px;\r\n    border-radius: 10px;\r\n}\r\nli:hover {\r\n    background: #eee;\r\n    cursor: pointer;\r\n  }\r\nimg{\r\n    float: left;\r\n    margin: 0 15px 0 0;\r\n}\r\nh1{\r\n    font: bold 20px/1.5 Helvetica, Verdana, sans-serif;\r\n}\r\np{\r\n    font: 200 12px/1.5 Georgia, Times New Roman, serif;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpc3RlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0lBRUksU0FBUztJQUNULFdBQVc7SUFDWCxlQUFlO0lBQ2YsZUFBZTs7SUFFZixxQkFBcUI7SUFDckIsYUFBYTtJQUNiLHNCQUFzQjtJQUN0QixtQkFBbUI7QUFDdkI7QUFDQTtJQUNJLHdCQUF3QjtJQUN4Qjs7Ozs7Ozs7O3FDQVNpQztJQUNqQyxhQUFhO0lBQ2IsY0FBYztJQUNkLFVBQVU7SUFDVixVQUFVO0lBQ1YsV0FBVztJQUNYLG1CQUFtQjtBQUN2QjtBQUNBO0lBQ0ksZ0JBQWdCO0lBQ2hCLGVBQWU7RUFDakI7QUFDRjtJQUNJLFdBQVc7SUFDWCxrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLGtEQUFrRDtBQUN0RDtBQUNBO0lBQ0ksa0RBQWtEO0FBQ3REIiwiZmlsZSI6Imxpc3RlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ1bHtcclxuICAgIFxyXG4gICAgd2lkdGg6NTAlO1xyXG4gICAgbWFyZ2luOmF1dG87XHJcbiAgICBtYXJnaW4tdG9wOjUwcHg7XHJcbiAgICBvdmVyZmxvdzpoaWRkZW47XHJcbiAgICBcclxuICAgIGxpc3Qtc3R5bGUtdHlwZTogbm9uZTtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxufVxyXG5saXtcclxuICAgIGJvcmRlcjo1cHggc29saWQgI2M0NDU2OTtcclxuICAgIGJhY2tncm91bmQ6XHJcbiAgICAgIHJhZGlhbC1ncmFkaWVudChjaXJjbGUgYXQgNTAlIDAsXHJcbiAgICAgICAgcmdiYSgyNTUsMCwwLC41KSxcclxuICAgICAgICByZ2JhKDI1NSwwLDAsMCkgNzAuNzElKSxcclxuICAgICAgcmFkaWFsLWdyYWRpZW50KGNpcmNsZSBhdCA2LjclIDc1JSxcclxuICAgICAgICByZ2JhKDAsMCwyNTUsLjUpLFxyXG4gICAgICAgIHJnYmEoMCwwLDI1NSwwKSA3MC43MSUpLFxyXG4gICAgICByYWRpYWwtZ3JhZGllbnQoY2lyY2xlIGF0IDkzLjMlIDc1JSxcclxuICAgICAgICByZ2JhKDAsMjU1LDAsLjUpLFxyXG4gICAgICAgIHJnYmEoMCwyNTUsMCwwKSA3MC43MSUpIGJlaWdlO1xyXG4gICAgcGFkZGluZzogMTBweDtcclxuICAgIG92ZXJmbG93OiBhdXRvO1xyXG4gICAgd2lkdGg6MTAwJTtcclxuICAgIGhlaWdodDoxNSU7XHJcbiAgICBtYXJnaW46MTVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XHJcbn1cclxubGk6aG92ZXIge1xyXG4gICAgYmFja2dyb3VuZDogI2VlZTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICB9XHJcbmltZ3tcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgbWFyZ2luOiAwIDE1cHggMCAwO1xyXG59XHJcbmgxe1xyXG4gICAgZm9udDogYm9sZCAyMHB4LzEuNSBIZWx2ZXRpY2EsIFZlcmRhbmEsIHNhbnMtc2VyaWY7XHJcbn1cclxucHtcclxuICAgIGZvbnQ6IDIwMCAxMnB4LzEuNSBHZW9yZ2lhLCBUaW1lcyBOZXcgUm9tYW4sIHNlcmlmO1xyXG59XHJcbiJdfQ== */";
+      __webpack_exports__["default"] = "li{\n  list-style-type: none;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpc3RlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQkFBcUI7QUFDdkIiLCJmaWxlIjoibGlzdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImxpe1xuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XG59XG4iXX0= */";
       /***/
     },
 

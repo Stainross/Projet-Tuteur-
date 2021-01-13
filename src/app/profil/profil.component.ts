@@ -73,7 +73,10 @@ export class ProfilComponent implements OnInit {
     }
     this.changeIntoDB();
   }
-
+  public Retirer(index:number){
+    this.allerg.splice(index,1);
+    this.changeIntoDB();
+  }
   
   getSelectedSkill() {
     console.log(this.selectedAlg);

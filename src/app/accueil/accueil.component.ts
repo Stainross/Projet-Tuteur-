@@ -43,9 +43,9 @@ export class AccueilComponent implements OnInit{
   async addToList(){
     console.log(this.barcode);
     console.log(this.appc.idfamille);
-    //https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes
-    //http://localhost:3000/api/listes
-    const data2 = await this.httpClient.post('https://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes', {
+    //
+    //http://localhost:3000/api/listeshttps://firestore.googleapis.com/v1/projects/projet-tuteure-42fc0/databases/(default)/documents/listes
+    const data2 = await this.httpClient.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
         barcode:this.barcode,
         idfamille:this.appc.idfamille
       }).subscribe({

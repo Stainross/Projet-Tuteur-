@@ -43,7 +43,9 @@ app.get('/api/users/:userId', async (req,res) => {
     db.collection('utilisateurs').doc(userId).get()
     .then(user => {
         if(!user.exists) throw new Error('User not found');
-        res.status(200).json({id:user.id, data:user.data()})})
+        res.status(200).json({id:user.id, data:user.data()});
+        return null;
+    })
     .catch(error => res.status(500).send(error));
         
 });
@@ -59,7 +61,9 @@ app.get('/api/listes/:prodId', async (req,res) => {
     db.collection('listes').doc(prodrId).get()
     .then(prod => {
         if(!prod.exists) throw new Error('Product not found');
-        res.status(200).json({id:prod.id, data:prod.data()})})
+        res.status(200).json({id:prod.id, data:prod.data()})
+        return null;
+    })
     .catch(error => res.status(500).send(error));
         
 });
@@ -78,6 +82,7 @@ app.post('/api/listes',async (req,res)=>{
                 const userQuerySnapshot=db.collection('listes').add({barcode:req.body.barcode,idfamille:req.body.idfamille})
                 .then(function(docRef){
                     console.log("Document écrit avec l'id: ",docRef.id);
+                    return null;
                 })
                 .catch(function(error){
                     console.error("Erreur d'ajout ",error);
@@ -86,6 +91,10 @@ app.post('/api/listes',async (req,res)=>{
                 console.log("Produit déjà dans la liste");
                 alreadyadded=true;
             }
+            return null;
+        }).catch(error=>{
+            console.error(error);
+            res.error(500);
         });
         
     }catch(error){

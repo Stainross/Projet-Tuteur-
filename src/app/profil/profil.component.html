@@ -9,12 +9,13 @@
 
 
 <label>Allergene</label>
-<div *ngFor="let allerg of allerg"> {{allerg.nom}} </div>
+<div *ngFor="let allerg of allerg;let myIndex=index;"> {{allerg.nom}} <button (click)=Retirer(myIndex)>Retirer</button></div>
 <select id="allergenes" [(ngModel)]="selectedAlg"
 (change)="getSelectedSkill()">
     <option *ngFor="let alg of Allergenes" [ngValue]="alg.id">
       {{alg.nom}}
     </option>
+    
 </select>
 
 <button (click)=Ajoutallerg()>Ajouter</button>
