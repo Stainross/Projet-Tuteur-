@@ -30,4 +30,24 @@ export class ListeComponent implements OnInit{
       }
      }
     }
+
+    public async Supprimer(product: Product){
+      var index=this.productList.indexOf(product);
+      this.productList.splice(index,1);
+      console.log("index:"+index);
+      const data = await this.http.get('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes', {
+        responseType: "json"
+      }).toPromise();
+      for(let key in data){
+        if(data[key]['data']['idfamille']==this.appc.idfamille && (await this.test.getProductData(data[key]['data']['barcode'])).name==product.name){
+          const data2 = this.http.delete('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/listes/'+data[key]['id'], {
+      }).subscribe({
+        error: error => {
+          console.error('There was an error!', error);
+        }
+      });
+        }
+      }
+      
+    }
 }

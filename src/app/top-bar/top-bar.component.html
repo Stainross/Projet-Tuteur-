@@ -1,9 +1,17 @@
 
+
 <header>
-	<a [routerLink]="['/']"><img src="https://i.postimg.cc/fJzC2XGn/accueil.png" alt="iconelogo" height="40px" width="40px"/></a>
-	<a [routerLink]="['profil']"><img src="https://i.postimg.cc/P54GyQgx/profil.png" alt="iconeprofile" height="40px" width="40px"/></a>
-	<a [routerLink]="['liste']"><img src="https://i.postimg.cc/9rLpv024/liste.png" alt="iconeliste" height="40px" width="40px"/></a>
-	<a [routerLink]="['famille']"><img src="https://i.postimg.cc/rDzJcTyf/famille.png" alt="iconefamille" height="40px" width="40px"/></a>
+    <div class="container">
+        <div class="content">
+          <div class="icon-container">
+            <a [routerLink]="['/']"><div class="icon icon-fill"><i class="fa fa-home"><img src="https://i.postimg.cc/fJzC2XGn/accueil.png" class="ima" alt="iconelogo" height="40px" width="40px"/></i></div></a>
+            <a [routerLink]="['profil']"><div class="icon icon-enter"><i class="fa fa-user"><img src="https://i.postimg.cc/P54GyQgx/profil.png" class="ima" alt="iconeprofile" height="40px" width="40px"/></i></div></a>
+            <a [routerLink]="['liste']"><div class="icon icon-expand"><i class="fa fa-bars"><img src="https://i.postimg.cc/9rLpv024/liste.png" class="ima" alt="iconeliste" height="40px" width="40px"/></i></div></a>
+            <a [routerLink]="['famille']"><div class="icon icon-collapse"><i class="fa fa-sign-in"><img src="https://i.postimg.cc/rDzJcTyf/famille.png" class="ima" alt="iconefamille" height="40px" width="40px"/></i></div></a>
+          </div>
+        </div>
+      </div>
+
 </header>
 <style>
 	li {

@@ -53,6 +53,23 @@ app.put('/api/users/:userId', async (req, res) => {
     .catch((error)=> res.status(500).send(error))
 
 });
+app.get('/api/listes/:prodId', async (req,res) => {
+
+    const prodId = req.params.userId; 
+    db.collection('listes').doc(prodrId).get()
+    .then(prod => {
+        if(!prod.exists) throw new Error('Product not found');
+        res.status(200).json({id:prod.id, data:prod.data()})})
+    .catch(error => res.status(500).send(error));
+        
+});
+app.delete('/api/listes/:prodId', (req, res) => {
+    db.collection("listes").doc(req.params.prodId).delete()
+    .then(()=>res.status(204).send("Document successfully deleted!"))
+    .catch(function (error) {
+            res.status(500).send(error);
+    });
+})
 app.post('/api/listes',async (req,res)=>{
     try{
         const query= db.collection("listes").where("barcode", "==", req.body.barcode).where("idfamille", "==", req.body.idfamille);

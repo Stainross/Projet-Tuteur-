@@ -1,3 +1,3 @@
-<ul *ngFor="let product of productList">
-    <li><img src="{{product.imageUrl}}"/>Nom: {{product.name}} Allergènes: {{product.allergens}}</li>    
+<ul >
+    <li *ngFor="let product of productList"><img src="{{product.imageUrl}}"/><h1>{{product.name}}</h1><p>Allergènes: {{product.allergens}}</p><button (click)=Supprimer(product)>Supprimer</button></li>    
 </ul>

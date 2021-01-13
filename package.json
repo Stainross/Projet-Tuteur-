@@ -23,7 +23,7 @@
     "err": "^2.1.12",
     "error-ex": "git+https://github.com/Qix-/node-error-ex.git",
     "eslint": "^7.17.0",
-    "firebase": "^8.2.1",
+    "firebase": "^8.2.2",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.0",
     "fs": "0.0.1-security",
