@@ -49,7 +49,7 @@ export class AppComponent {
       if(this.nom.nativeElement.value=="" || this.prenom.nativeElement.value=="" || this.mdp.nativeElement.value=="")alert("Un ou plusieurs champs n'ont pas été remplis");
       else{
           console.log("adresse valide");
-        const data2 = this.http.post('http://localhost:3000/api/users', {
+        const data2 = this.http.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
         nom: this.nom.nativeElement.value,
         prenom: this.prenom.nativeElement.value,
         email:this.email.nativeElement.value,
