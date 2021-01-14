@@ -144,23 +144,43 @@ let ProfilComponent = class ProfilComponent {
     }
     changeName() {
         var valeur = prompt("Entrez le nouveau nom");
-        this.nom = valeur;
-        this.changeIntoDB();
+        if (valeur != "") {
+            this.nom = valeur;
+            this.changeIntoDB();
+        }
+        else
+            alert("Ce champ ne peut être vide");
     }
     changeFirstName() {
         var valeur = prompt("Entrez le nouveau prénom");
-        this.prenom = valeur;
-        this.changeIntoDB();
+        if (valeur != "") {
+            this.prenom = valeur;
+            this.changeIntoDB();
+        }
+        else
+            alert("Ce champ ne peut être vide");
     }
     changeMail() {
         var valeur = prompt("Entrez la nouvelle adresse mail");
-        this.email = valeur;
-        this.changeIntoDB();
+        if (this.checkEmail(valeur)) {
+            this.email = valeur;
+            this.changeIntoDB();
+        }
+        else
+            alert("Email invalide");
+    }
+    checkEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
     changeMDP() {
         var valeur = prompt("Entrez le nouveau mot de passe");
-        this.mdp = valeur;
-        this.changeIntoDB();
+        if (valeur != "") {
+            this.mdp = valeur;
+            this.changeIntoDB();
+        }
+        else
+            alert("Ce champ ne peut être vide");
     }
     changeIntoDB() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -740,7 +760,7 @@ let AppComponent = class AppComponent {
                 alert("Un ou plusieurs champs n'ont pas été remplis");
             else {
                 console.log("adresse valide");
-                const data2 = this.http.post('http://localhost:3000/api/users', {
+                const data2 = this.http.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                     nom: this.nom.nativeElement.value,
                     prenom: this.prenom.nativeElement.value,
                     email: this.email.nativeElement.value,

@@ -239,29 +239,47 @@
           key: "changeName",
           value: function changeName() {
             var valeur = prompt("Entrez le nouveau nom");
-            this.nom = valeur;
-            this.changeIntoDB();
+
+            if (valeur != "") {
+              this.nom = valeur;
+              this.changeIntoDB();
+            } else alert("Ce champ ne peut être vide");
           }
         }, {
           key: "changeFirstName",
           value: function changeFirstName() {
             var valeur = prompt("Entrez le nouveau prénom");
-            this.prenom = valeur;
-            this.changeIntoDB();
+
+            if (valeur != "") {
+              this.prenom = valeur;
+              this.changeIntoDB();
+            } else alert("Ce champ ne peut être vide");
           }
         }, {
           key: "changeMail",
           value: function changeMail() {
             var valeur = prompt("Entrez la nouvelle adresse mail");
-            this.email = valeur;
-            this.changeIntoDB();
+
+            if (this.checkEmail(valeur)) {
+              this.email = valeur;
+              this.changeIntoDB();
+            } else alert("Email invalide");
+          }
+        }, {
+          key: "checkEmail",
+          value: function checkEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
           }
         }, {
           key: "changeMDP",
           value: function changeMDP() {
             var valeur = prompt("Entrez le nouveau mot de passe");
-            this.mdp = valeur;
-            this.changeIntoDB();
+
+            if (valeur != "") {
+              this.mdp = valeur;
+              this.changeIntoDB();
+            } else alert("Ce champ ne peut être vide");
           }
         }, {
           key: "changeIntoDB",
@@ -1276,7 +1294,7 @@
             if (this.checkEmail(this.email.nativeElement.value)) {
               if (this.nom.nativeElement.value == "" || this.prenom.nativeElement.value == "" || this.mdp.nativeElement.value == "") alert("Un ou plusieurs champs n'ont pas été remplis");else {
                 console.log("adresse valide");
-                var data2 = this.http.post('http://localhost:3000/api/users', {
+                var data2 = this.http.post('https://us-central1-projet-tuteure-42fc0.cloudfunctions.net/app/api/users', {
                   nom: this.nom.nativeElement.value,
                   prenom: this.prenom.nativeElement.value,
                   email: this.email.nativeElement.value,

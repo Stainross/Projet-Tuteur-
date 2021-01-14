@@ -22,23 +22,41 @@ export class ProfilComponent implements OnInit {
   Allergenes = Allergenes;
   public changeName() {
     var valeur = prompt("Entrez le nouveau nom");
-    this.nom = valeur;
-    this.changeIntoDB();
+    if(valeur!=""){
+      this.nom = valeur;
+      this.changeIntoDB();
+    }
+    else alert("Ce champ ne peut être vide");
+    
   }
   public changeFirstName(){
     var valeur = prompt("Entrez le nouveau prénom");
-    this.prenom = valeur;
-    this.changeIntoDB();
+    if(valeur!=""){
+      this.prenom = valeur;
+      this.changeIntoDB();
+    }
+    else alert("Ce champ ne peut être vide");
+    
   }
   public changeMail() {
     var valeur = prompt("Entrez la nouvelle adresse mail");
-    this.email = valeur;
-    this.changeIntoDB();
+    if(this.checkEmail(valeur)){
+      this.email = valeur;
+      this.changeIntoDB();
+    }else alert("Email invalide");
+    
+  }
+  checkEmail(email: string) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   }
   public changeMDP() {
     var valeur = prompt("Entrez le nouveau mot de passe");
-    this.mdp = valeur;
-    this.changeIntoDB();
+    if(valeur!=""){
+      this.mdp = valeur;
+      this.changeIntoDB();
+    }
+    else alert("Ce champ ne peut être vide");
   }
   public async changeIntoDB(){
     //http://localhost:3000/api/users/
