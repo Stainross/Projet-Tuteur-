@@ -1223,6 +1223,7 @@
 
           this.http = http;
           this.connected = false;
+          this.inscrit = false;
         }
 
         _createClass(AppComponent, [{
@@ -1247,7 +1248,7 @@
                       console.log(data);
 
                       for (key in data) {
-                        if (this.mdp.nativeElement.value == data[key]["data"]["mdp"] && this.email.nativeElement.value == data[key]["data"]["email"]) {
+                        if (md5(this.mdp.nativeElement.value) == data[key]["data"]["mdp"] && this.email.nativeElement.value == data[key]["data"]["email"]) {
                           console.log("Vous êtes connecté");
                           console.log("Id =" + data[key]["id"] + " idfamille = " + data[key]["data"]["idfamille"]);
                           this.id = data[key]["id"];
@@ -1266,6 +1267,36 @@
                 }
               }, _callee7, this);
             }));
+          }
+        }, {
+          key: "Inscription",
+          value: function Inscription() {
+            console.log("inscription");
+
+            if (this.checkEmail(this.email.nativeElement.value)) {
+              if (this.nom.nativeElement.value == "" || this.prenom.nativeElement.value == "" || this.mdp.nativeElement.value == "") alert("Un ou plusieurs champs n'ont pas été remplis");else {
+                console.log("adresse valide");
+                var data2 = this.http.post('http://localhost:3000/api/users', {
+                  nom: this.nom.nativeElement.value,
+                  prenom: this.prenom.nativeElement.value,
+                  email: this.email.nativeElement.value,
+                  mdp: md5(this.mdp.nativeElement.value)
+                }).subscribe({
+                  error: function error(_error4) {
+                    console.error('There was an error!', _error4);
+                  }
+                });
+              }
+            } else {
+              console.log("adresse non valide");
+              alert("Adresse mail non valide");
+            }
+          }
+        }, {
+          key: "checkEmail",
+          value: function checkEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
           }
         }]);
 
@@ -1286,6 +1317,14 @@
         mdp: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
           args: ['mdp']
+        }],
+        nom: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
+          args: ['nom']
+        }],
+        prenom: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
+          args: ['prenom']
         }]
       };
       AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -1318,7 +1357,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<body>\r\n<div class=\"connexion\" *ngIf=\"connected==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n</body>\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n  ";
+      __webpack_exports__["default"] = "<body>\r\n<div class=\"connexion\" *ngIf=\"connected==false && inscrit==false\">\r\n\t<p>admin@example.com</p><p>admin123456</p>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"onSubmit()\">Se connecter</button>\r\n\t<p>Insc</p>\r\n\t<a (click)=\"inscrit=true;\">Pas de compte ? Inscrivez-vous</a>\r\n\t\r\n\t\r\n</div>\r\n<div class=\"inscription\" *ngIf=\"inscrit\">\r\n\t<h1>Inscription</h1>\r\n\t<label>Nom</label>\r\n\t<input type=\"text\" #nom/>\r\n\t<label>Prénom</label>\r\n\t<input type=\"text\" #prenom/>\r\n\t<label>Mail</label>\r\n\t<input type=\"text\" #email/>\r\n\t<label>Mot de passe</label>\r\n\t<input type=\"text\" #mdp/>\r\n\t<button (click)=\"Inscription()\">S'inscrire</button>\r\n\t<br />\r\n\t<a (click)=\"inscrit=false;\">Retourner à l'écran de connexion</a>\r\n</div>\r\n<app-top-bar *ngIf=\"connected\"></app-top-bar>\r\n<div class=\"container\" *ngIf=\"connected\">\r\n\t<router-outlet></router-outlet>\r\n</div>\r\n</body>\r\n<!-- \r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at https://angular.io/license\r\n-->\r\n  ";
       /***/
     },
 
@@ -1438,6 +1477,9 @@
         }, {
           path: "famille",
           component: _famille_famille_component__WEBPACK_IMPORTED_MODULE_12__["FamilleComponent"]
+        }, {
+          path: "connexion",
+          component: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
         }])],
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _top_bar_top_bar_component__WEBPACK_IMPORTED_MODULE_7__["TopBarComponent"], //ProductListComponent,
         //ProductAlertsComponent,

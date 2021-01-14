@@ -12,7 +12,10 @@ export class AppComponent {
   allerg: [{id:number,nom:string}];
   @ViewChild('email') email: ElementRef;
   @ViewChild('mdp') mdp: ElementRef;
+  @ViewChild('nom') nom: ElementRef;
+  @ViewChild('prenom') prenom: ElementRef;
   connected=false;
+  inscrit=false;
   constructor(private http: HttpClient){}
   async onSubmit(){
     console.log("connexion");
@@ -24,7 +27,7 @@ export class AppComponent {
       console.log(data);
       
      for(let key in data){
-        if(this.mdp.nativeElement.value==data[key]["data"]["mdp"] && this.email.nativeElement.value==data[key]["data"]["email"]){
+        if(md5(this.mdp.nativeElement.value)==data[key]["data"]["mdp"] && this.email.nativeElement.value==data[key]["data"]["email"]){
           console.log("Vous êtes connecté");
           console.log("Id ="+data[key]["id"]+" idfamille = "+data[key]["data"]["idfamille"]);
           this.id=data[key]["id"];
@@ -39,6 +42,34 @@ export class AppComponent {
 
 
     
+  }
+  public Inscription(){
+    console.log("inscription");
+    if(this.checkEmail(this.email.nativeElement.value)){
+      if(this.nom.nativeElement.value=="" || this.prenom.nativeElement.value=="" || this.mdp.nativeElement.value=="")alert("Un ou plusieurs champs n'ont pas été remplis");
+      else{
+          console.log("adresse valide");
+        const data2 = this.http.post('http://localhost:3000/api/users', {
+        nom: this.nom.nativeElement.value,
+        prenom: this.prenom.nativeElement.value,
+        email:this.email.nativeElement.value,
+        mdp:md5(this.mdp.nativeElement.value),
+      }).subscribe({
+        error: error => {
+          console.error('There was an error!', error);
+        }
+      });
+      }
+      
+    }else{
+      console.log("adresse non valide");
+      alert("Adresse mail non valide");
+    }
+    
+  }
+  checkEmail(email: string) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   }
 }
 

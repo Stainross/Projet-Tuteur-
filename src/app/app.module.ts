@@ -22,7 +22,8 @@ import { FamilleComponent } from "./famille/famille.component";
       { path: "", component: AccueilComponent },
       { path: "profil", component: ProfilComponent },
       { path: "liste", component: ListeComponent },
-      { path: "famille", component: FamilleComponent }
+      { path: "famille", component: FamilleComponent },
+      { path: "connexion", component: AppComponent}
     ])
   ],
   declarations: [

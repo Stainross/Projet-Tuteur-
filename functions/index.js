@@ -118,6 +118,36 @@ app.get('/api/listes',async (req, res) => {
     res.status(500).send(error);
 }
   });
+
+  app.post('/api/users',async (req,res)=>{
+    try{
+        const query= db.collection("utilisateurs").where("email", "==", req.body.email);
+        query.get().then(function(querySnapshot) {
+            if (querySnapshot.empty) {
+                const userQuerySnapshot=db.collection('utilisateurs').add({email:req.body.email,mdp:req.body.mdp,nom:req.body.nom,prenom:req.body.prenom,allergenes:[],idfamille:0})
+                .then(function(docRef){
+                    console.log("Document écrit avec l'id: ",docRef.id);
+                    return null;
+                })
+                .catch(function(error){
+                    console.error("Erreur d'ajout ",error);
+                });
+            } else {
+                console.log("Email déjà utilisé");
+                alreadyadded=true;
+            }
+            return null;
+        }).catch(error=>{
+            console.error(error);
+            res.error(500);
+        });
+        
+    }catch(error){
+        console.error("Erreur");
+    }
+});
+
+
 app.listen(PORT, () => {
 console.info('Server is running on PORT:', PORT);
 });

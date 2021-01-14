@@ -1,11 +1,29 @@
 <body>
-<div class="connexion" *ngIf="connected==false">
+<div class="connexion" *ngIf="connected==false && inscrit==false">
 	<p>admin@example.com</p><p>admin123456</p>
 	<label>Mail</label>
 	<input type="text" #email/>
 	<label>Mot de passe</label>
 	<input type="text" #mdp/>
 	<button (click)="onSubmit()">Se connecter</button>
+	<p>Insc</p>
+	<a (click)="inscrit=true;">Pas de compte ? Inscrivez-vous</a>
+	
+	
+</div>
+<div class="inscription" *ngIf="inscrit">
+	<h1>Inscription</h1>
+	<label>Nom</label>
+	<input type="text" #nom/>
+	<label>Prénom</label>
+	<input type="text" #prenom/>
+	<label>Mail</label>
+	<input type="text" #email/>
+	<label>Mot de passe</label>
+	<input type="text" #mdp/>
+	<button (click)="Inscription()">S'inscrire</button>
+	<br />
+	<a (click)="inscrit=false;">Retourner à l'écran de connexion</a>
 </div>
 <app-top-bar *ngIf="connected"></app-top-bar>
 <div class="container" *ngIf="connected">
